@@ -1,0 +1,1577 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Nair Homework 4}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{precision} \PYZpc{}g
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{o}{\PYZpc{}}\PY{k}{config} InlineBackend.figure\PYZus{}format = \PYZsq{}retina\PYZsq{}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{sqrt}\PY{p}{,} \PY{n}{pi}\PY{p}{,} \PY{n}{sin}\PY{p}{,} \PY{n}{cos}\PY{p}{,} \PY{n}{exp}\PY{p}{,} \PY{n}{inf}\PY{p}{,} \PY{n}{factorial}\PY{p}{,} \PY{n}{tan}
+        \PY{c+c1}{\PYZsh{}from cmath import exp as cexp}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k}{import} \PY{n}{linalg} \PY{k}{as} \PY{n}{LA}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{constants} \PY{k}{as} \PY{n}{C}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{integrate}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{c+c1}{\PYZsh{}from IPython.display import set\PYZus{}matplotlib\PYZus{}formats}
+        \PY{c+c1}{\PYZsh{}set\PYZus{}matplotlib\PYZus{}formats(\PYZsq{}png\PYZsq{}, \PYZsq{}pdf\PYZsq{})}
+\end{Verbatim}
+
+    \section{CP 5.21 Electric field of a charge
+distribution}\label{cp-5.21-electric-field-of-a-charge-distribution}
+
+Electric potential due to a point charge is given by
+\(\phi = \frac{q}{4\pi\epsilon_0r}.\)
+
+The electric field can be found from this potential by taking partial
+derivatives, such that
+
+\[\mathbf{E} = -\nabla\phi\]
+
+I will define two partial derivative functions to find the field at
+respective points on the grid. The partial derivatives will be defined
+as according to the central difference
+
+\[\frac{\partial f(x,y)}{\partial x} = \frac{f(x+\frac{h}{2}, y) - f(x-\frac{h}{2}, y)}{h}\]
+
+\[\frac{\partial f(x,y)}{\partial y} = \frac{f(x, y+\frac{h}{2}) - f(x, y-\frac{h}{2})}{h}\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{q1} \PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{}charge 1 in coulombs}
+        \PY{n}{q2} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{}charge 2 in coulombs}
+        \PY{n}{e0} \PY{o}{=} \PY{n}{C}\PY{o}{.}\PY{n}{epsilon\PYZus{}0}
+        
+        \PY{k}{def} \PY{n+nf}{potential}\PY{p}{(}\PY{n}{q}\PY{p}{,} \PY{n}{r}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{q} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{4}\PY{o}{*} \PY{n}{pi}\PY{o}{*} \PY{n}{e0}\PY{o}{*} \PY{n}{r}\PY{p}{)}
+        
+        \PY{n}{side} \PY{o}{=} \PY{l+m+mf}{1.0} \PY{c+c1}{\PYZsh{}side length of the square (m)}
+        \PY{n}{points} \PY{o}{=} \PY{l+m+mi}{100} \PY{c+c1}{\PYZsh{}number of grid points along each side}
+        \PY{n}{spacing} \PY{o}{=} \PY{n}{side} \PY{o}{/} \PY{n}{points} \PY{c+c1}{\PYZsh{}spacing of points (m)}
+        \PY{n}{separation} \PY{o}{=} \PY{l+m+mf}{0.1} \PY{c+c1}{\PYZsh{}separation of charges (m)}
+        
+        \PY{n}{x01} \PY{o}{=} \PY{n}{side}\PY{o}{/}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{separation}\PY{o}{/}\PY{l+m+mi}{2}
+        \PY{n}{y01} \PY{o}{=} \PY{n}{side}\PY{o}{/}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{separation}\PY{o}{/}\PY{l+m+mi}{2}
+        \PY{n}{x02} \PY{o}{=} \PY{n}{side}\PY{o}{/}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{n}{separation}\PY{o}{/}\PY{l+m+mi}{2}
+        \PY{n}{y02} \PY{o}{=} \PY{n}{side}\PY{o}{/}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{n}{separation}\PY{o}{/}\PY{l+m+mi}{2}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}np.seterr(divide=\PYZsq{}ignore\PYZsq{}, invalid=\PYZsq{}ignore\PYZsq{})}
+        \PY{n}{phi} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{p}{[}\PY{n}{points}\PY{p}{,}\PY{n}{points}\PY{p}{]}\PY{p}{,}\PY{n+nb}{float}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}calculate the values in the array}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{:}
+            \PY{n}{y} \PY{o}{=} \PY{n}{spacing} \PY{o}{*} \PY{n}{i}
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{:}
+                \PY{n}{x} \PY{o}{=} \PY{n}{spacing} \PY{o}{*} \PY{n}{j}
+                \PY{n}{r1} \PY{o}{=} \PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{x01}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{p}{(}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{n}{y01}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+                \PY{n}{r2} \PY{o}{=} \PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{x02}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{p}{(}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{n}{y02}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+                \PY{k}{if} \PY{n}{r1} \PY{o}{!=} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{r2} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                    \PY{n}{phi}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{potential}\PY{p}{(}\PY{n}{q1}\PY{p}{,} \PY{n}{r1}\PY{p}{)} \PY{o}{+} \PY{n}{potential}\PY{p}{(}\PY{n}{q2}\PY{p}{,} \PY{n}{r2}\PY{p}{)}
+        
+        \PY{n}{fig1}\PY{p}{,} \PY{n}{ax1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}increases readability of plot}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Electric Potential of Two Point Charges}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x (\PYZdl{}m\PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y (\PYZdl{}m\PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{phi}\PY{p}{,}\PY{n}{origin}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{extent}\PY{o}{=}\PYZbs{}
+                  \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                  \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{seismic}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{vmax}\PY{o}{=}\PY{l+m+mf}{7.5e11}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} <matplotlib.image.AxesImage at 0x10f42ec18>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Because potential was only a function of distance from each point
+charge, it was easier to define it in terms of \(r.\) However, because
+we need to take the partial derivatives with respect to \(x\) and \(y\)
+separately, it is easier to redefine this potential function and then
+define partial derivative functions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{potential}\PY{p}{(}\PY{n}{q}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+            \PY{n}{r} \PY{o}{=} \PY{n}{sqrt}\PY{p}{(}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{k}{return} \PY{n}{q} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{4}\PY{o}{*} \PY{n}{pi}\PY{o}{*} \PY{n}{e0}\PY{o}{*} \PY{n}{r}\PY{p}{)}
+        
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Creates partial derivative functions to}
+        \PY{l+s+sd}{    find the field at points on the grid\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{k}{def} \PY{n+nf}{Ex}\PY{p}{(}\PY{n}{q}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{h}\PY{p}{)}\PY{p}{:}
+        
+            \PY{n}{partial} \PY{o}{=} \PY{p}{(}\PY{n}{potential}\PY{p}{(}\PY{n}{q}\PY{p}{,}\PY{n}{x}\PY{o}{+}\PY{n}{h}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{y}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{potential}\PY{p}{(}\PY{n}{q}\PY{p}{,}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{h}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{h}
+            \PY{k}{return} \PY{o}{\PYZhy{}}\PY{n}{partial}
+        
+        \PY{k}{def} \PY{n+nf}{Ey}\PY{p}{(}\PY{n}{q}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{h}\PY{p}{)}\PY{p}{:}
+        
+            \PY{n}{partial} \PY{o}{=} \PY{p}{(}\PY{n}{potential}\PY{p}{(}\PY{n}{q}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{o}{+}\PY{n}{h}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{potential}\PY{p}{(}\PY{n}{q}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{n}{h}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{h}
+            \PY{k}{return} \PY{o}{\PYZhy{}}\PY{n}{partial}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{h} \PY{o}{=} \PY{l+m+mf}{0.001}
+        \PY{n}{side} \PY{o}{=} \PY{l+m+mf}{1.0} \PY{c+c1}{\PYZsh{}side length of the square (m)}
+        \PY{n}{points} \PY{o}{=} \PY{l+m+mi}{20} \PY{c+c1}{\PYZsh{}number of grid points along each side}
+        \PY{n}{spacing} \PY{o}{=} \PY{n}{side} \PY{o}{/} \PY{n}{points} \PY{c+c1}{\PYZsh{}spacing of points (m)}
+        
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{points}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{points}\PY{p}{)}
+        \PY{n}{E\PYZus{}x}\PY{p}{,} \PY{n}{E\PYZus{}y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}calculate the values in the array}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{:}
+            \PY{n}{y} \PY{o}{=} \PY{n}{spacing} \PY{o}{*} \PY{n}{i}
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{:}
+                \PY{n}{x} \PY{o}{=} \PY{n}{spacing} \PY{o}{*} \PY{n}{j}
+                
+                \PY{n}{dx1} \PY{o}{=} \PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{x01}
+                \PY{n}{dy1} \PY{o}{=} \PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{y01}
+                \PY{n}{dx2} \PY{o}{=} \PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{x02}
+                \PY{n}{dy2} \PY{o}{=} \PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{y02}
+                
+                \PY{n}{E\PYZus{}x}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{Ex}\PY{p}{(}\PY{n}{q1}\PY{p}{,} \PY{n}{dx1}\PY{p}{,} \PY{n}{dy1}\PY{p}{,} \PY{n}{h}\PY{p}{)} \PY{o}{+} \PY{n}{Ex}\PY{p}{(}\PY{n}{q2}\PY{p}{,} \PY{n}{dx2}\PY{p}{,} \PY{n}{dy2}\PY{p}{,} \PY{n}{h}\PY{p}{)}
+                \PY{n}{E\PYZus{}y}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{Ey}\PY{p}{(}\PY{n}{q1}\PY{p}{,} \PY{n}{dx1}\PY{p}{,} \PY{n}{dy1}\PY{p}{,} \PY{n}{h}\PY{p}{)} \PY{o}{+} \PY{n}{Ey}\PY{p}{(}\PY{n}{q2}\PY{p}{,} \PY{n}{dx2}\PY{p}{,} \PY{n}{dy2}\PY{p}{,} \PY{n}{h}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}E\PYZus{}x /= np.sqrt(E\PYZus{}x**2 + E\PYZus{}y**2)}
+        \PY{c+c1}{\PYZsh{}E\PYZus{}y /= np.sqrt(E\PYZus{}x**2 + E\PYZus{}y**2)        }
+                
+        \PY{n}{fig2}\PY{p}{,} \PY{n}{ax2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x (m)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y (m)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Field of Two Opposite Point Charges}\PY{l+s+se}{\PYZbs{}}
+        \PY{l+s+s2}{ (arrow length\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{propto |E|\PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{E\PYZus{}x}\PY{p}{,} \PY{n}{E\PYZus{}y}\PY{p}{,}\PY{n}{headwidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{c+c1}{\PYZsh{}, scale=1)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} <matplotlib.quiver.Quiver at 0x10762ec50>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{points} \PY{o}{=} \PY{l+m+mi}{10} \PY{c+c1}{\PYZsh{}number of grid points along each side}
+        \PY{n}{spacing} \PY{o}{=} \PY{n}{side} \PY{o}{/} \PY{n}{points} \PY{c+c1}{\PYZsh{}spacing of points (m)}
+        
+        \PY{n}{E\PYZus{}x} \PY{o}{/}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{E\PYZus{}x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{E\PYZus{}y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{E\PYZus{}y} \PY{o}{/}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{E\PYZus{}x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{E\PYZus{}y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}        
+                
+        \PY{n}{fig2}\PY{p}{,} \PY{n}{ax2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x (m)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y (m)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Field of Two Opposite Point Charges}\PY{l+s+se}{\PYZbs{}}
+        \PY{l+s+s2}{ (normalized field arrows)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{E\PYZus{}x}\PY{p}{,} \PY{n}{E\PYZus{}y}\PY{p}{,}\PY{n}{headwidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jet}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}plt.scatter(x,y, color=\PYZsq{}c\PYZsq{})}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} <matplotlib.quiver.Quiver at 0x113bfaf28>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    While the quiver plot with varying arrow lengths contains more
+information, it's also difficult to discern the pattern of the field,
+which is clearly visible when all arrows are made the same length. I
+wasn't able to set the axes of the plots to reflect the distances as
+opposed to the number of points being used to create the vector field.
+
+    \section{CP 6.1 Resistor circuit}\label{cp-6.1-resistor-circuit}
+
+Given the circuit diagram in the book, we can solve a system of
+equations to find the voltages at different points in the circuit. One
+equation given is \[4V_1 - V_2 - V_3 - V_4 = V_+.\] By writing out
+similar equations using Ohm's Law and Kirchoff's Junction Rule, we
+obtain the following equations. \[3V_2 - V_1 - V_4 = 0\]
+\[3V_3 - V_1 - V_4 = V_+\] \[4V_4 - V_1 - V_2 - V_3 = 0.\]
+
+    We can write this in its vector-matrix form \(A\mathbf{x} = \mathbf{v}\)
+with
+
+\(A = \begin{pmatrix}  4 & -1 & -1 & -1 \\  -1 & 3 & 0 & -1 \\  -1 & 0 & 3 & -1 \\  -1 & -1 & -1 & 4 \end{pmatrix} \text{, }\)
+\(\mathbf{x} = \begin{pmatrix} V_1 \\ V_2 \\ V_3 \\ V_4 \end{pmatrix} \text{, and }\)
+\(\mathbf{v} = \begin{pmatrix} V_+ \\ 0 \\ V_+ \\ 0 \end{pmatrix}.\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+        
+        Vp = 5 \PYZsh{}volts
+        A = np.array([[4,\PYZhy{}1,\PYZhy{}1,\PYZhy{}1],
+                      [\PYZhy{}1,3,0,\PYZhy{}1],
+                      [\PYZhy{}1,0,3,\PYZhy{}1],
+                      [\PYZhy{}1,\PYZhy{}1,\PYZhy{}1,4]], float)
+        v = np.array([Vp,0,Vp,0], float)
+        N = len(v)
+        
+        \PYZsh{}Gaussian elimination program w/out partial pivoting
+        for m in range(N):
+        
+            \PYZsh{}Division by diagonal element
+            div = A[m,m]
+            A[m,:] /= div
+            v[m] /= div
+        
+            \PYZsh{}subtract from lower rows
+            for i in range(m+1, N):
+                mult = A[i,m]
+                A[i,:] \PYZhy{}= mult * A[m,:]
+                v[i] \PYZhy{}= mult * v[m]
+        
+        \PYZsh{}backsubstitution
+        x = np.empty(N, float)
+        for m in range(N\PYZhy{}1, \PYZhy{}1, \PYZhy{}1):
+            x[m] = v[m]
+            for i in range(m+1, N):
+                x[m] \PYZhy{}= A[m,i] * x[i]
+         
+        print(\PYZdq{}(V1, V2, V3, V4) = (\PYZob{}:2.2f\PYZcb{},\PYZob{}:2.2f\PYZcb{},\PYZob{}:2.2f\PYZcb{},\PYZob{}:2.2f\PYZcb{})\PYZdq{}\PYZbs{}
+             .format(x[0],x[1],x[2],x[3]))
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(V1, V2, V3, V4) = (3.00,1.67,3.33,2.00)
+CPU times: user 306 µs, sys: 113 µs, total: 419 µs
+Wall time: 345 µs
+
+    \end{Verbatim}
+
+    \section{CP 6.2 Partial pivoting}\label{cp-6.2-partial-pivoting}
+
+Incorporating partial pivoting into the Gaussian elimination algorithm
+handles cases in which there are zeroes on the diagonal of our
+coefficient matrix. This would normally be a problem because it would
+create a divide by zero error, however rows can be exchanged without
+effecting the solution, as long as they are changed consistently.
+
+I will demonstrate that partial pivoting provides the same answers as
+standard Gaussian elimination when applied to the system in 6.1:
+
+\[2w+x+4y+z=-4\] \[3w+4x-y-z=3\] \[w-4x+y+5z=9\] \[2w-2x+y+3z=7\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}This cell prints the result of using partial pivoting}
+        \PY{l+s+sd}{    with Gaussian elimination to solve the above system\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                      \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                      \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}
+                      \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+        \PY{n}{v} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+        \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{v}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Gaussian elimination program w/ partial pivoting}
+        \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+        
+            \PY{c+c1}{\PYZsh{}Partial pivoting}
+            \PY{k}{if} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{m}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n}{A}\PY{p}{[}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{p}{[}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{m}\PY{p}{]}\PY{p}{]}
+                \PY{n}{v}\PY{p}{[}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{v}\PY{p}{[}\PY{p}{[}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{m}\PY{p}{]}\PY{p}{]}
+                
+            \PY{c+c1}{\PYZsh{}Division by diagonal element}
+            \PY{n}{div} \PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+            \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{div}
+            \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{div}
+        
+            \PY{c+c1}{\PYZsh{}subtract from lower rows}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                \PY{n}{mult} \PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+                \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mult} \PY{o}{*} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+                \PY{n}{v}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mult} \PY{o}{*} \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]}
+                
+        
+        \PY{c+c1}{\PYZsh{}backsubstitution}
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+        \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+            \PY{n}{x}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{=} \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                \PY{n}{x}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{(w, x, y, z) = (}\PY{l+s+si}{\PYZob{}:2.2f\PYZcb{}}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZob{}:2.2f\PYZcb{}}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZob{}:2.2f\PYZcb{}}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZob{}:2.2f\PYZcb{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+             \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(w, x, y, z) = (2.00,-1.00,-2.00,1.00)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}This cell solves the system of equations}
+         \PY{l+s+sd}{    without using partial pivoting\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+         \PY{n}{v} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+         \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{v}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Gaussian elimination program w/out partial pivoting}
+         \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+         
+             \PY{c+c1}{\PYZsh{}Division by diagonal element}
+             \PY{n}{div} \PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+             \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{div}
+             \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{div}
+         
+             \PY{c+c1}{\PYZsh{}subtract from lower rows}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{mult} \PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+                 \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mult} \PY{o}{*} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+                 \PY{n}{v}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mult} \PY{o}{*} \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}backsubstitution}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+         \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{=} \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{x}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{(w, x, y, z) = (}\PY{l+s+si}{\PYZob{}:2.2f\PYZcb{}}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZob{}:2.2f\PYZcb{}}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZob{}:2.2f\PYZcb{}}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZob{}:2.2f\PYZcb{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+              \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(w, x, y, z) = (2.00,-1.00,-2.00,1.00)
+
+    \end{Verbatim}
+
+    So, for that system, because there were no zeroes on the diagonal, the
+methods using partial pivoting and not performed equally well. Now,
+moving on to part (b), we attempt to solve the system in 6.17.
+
+\(A = \begin{pmatrix}  0 & 1 & 4 & 1 \\  3 & 4 & -1 & -1 \\  1 & -4 & 1 & 5 \\  2 & -2 & 1 & 3 \end{pmatrix} \text{ and }\)
+\(\mathbf{v} = \begin{pmatrix} -4 \\ 3 \\ 9 \\ 7 \end{pmatrix}.\)
+
+Attempting to solve this, normal Gaussian elimination without partial
+pivoting fails.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+         \PY{n}{v} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+         \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{v}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Gaussian elimination program w/out partial pivoting}
+         \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+         
+             \PY{c+c1}{\PYZsh{}Division by diagonal element}
+             \PY{n}{div} \PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+             \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{div}
+             \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{div}
+         
+             \PY{c+c1}{\PYZsh{}subtract from lower rows}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{mult} \PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+                 \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mult} \PY{o}{*} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+                 \PY{n}{v}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mult} \PY{o}{*} \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}backsubstitution}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+         \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{=} \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{x}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                 
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{(w, x, y, z) = (}\PY{l+s+si}{\PYZob{}:2.2f\PYZcb{}}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZob{}:2.2f\PYZcb{}}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZob{}:2.2f\PYZcb{}}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZob{}:2.2f\PYZcb{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+              \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(w, x, y, z) = (nan,nan,nan,nan)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Varun/anaconda/lib/python3.6/site-packages/ipykernel\_launcher.py:13: RuntimeWarning: divide by zero encountered in true\_divide
+  del sys.path[0]
+/Users/Varun/anaconda/lib/python3.6/site-packages/ipykernel\_launcher.py:13: RuntimeWarning: invalid value encountered in true\_divide
+  del sys.path[0]
+/Users/Varun/anaconda/lib/python3.6/site-packages/ipykernel\_launcher.py:14: RuntimeWarning: divide by zero encountered in double\_scalars
+  
+/Users/Varun/anaconda/lib/python3.6/site-packages/ipykernel\_launcher.py:14: RuntimeWarning: invalid value encountered in double\_scalars
+  
+
+    \end{Verbatim}
+
+    However, if we use the method of partial pivoting, the system is
+solvable.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+         \PY{n}{v} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+         \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{v}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Gaussian elimination program w/ partial pivoting}
+         \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+         
+             \PY{c+c1}{\PYZsh{}Division by diagonal element}
+             \PY{k}{if} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{m}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{A}\PY{p}{[}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{p}{[}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{m}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{v}\PY{p}{[}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{v}\PY{p}{[}\PY{p}{[}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{m}\PY{p}{]}\PY{p}{]}
+             \PY{n}{div} \PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+             \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{div}
+             \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{div}
+         
+             \PY{c+c1}{\PYZsh{}subtract from lower rows}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{mult} \PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+                 \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mult} \PY{o}{*} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+                 \PY{n}{v}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mult} \PY{o}{*} \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}backsubstitution}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+         \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{=} \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{x}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{(w, x, y, z) = (}\PY{l+s+si}{\PYZob{}:2.2f\PYZcb{}}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZob{}:2.2f\PYZcb{}}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZob{}:2.2f\PYZcb{}}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZob{}:2.2f\PYZcb{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+              \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(w, x, y, z) = (1.62,-0.43,-1.24,1.38)
+
+    \end{Verbatim}
+
+    \section{CP 6.3 LU decomposition}\label{cp-6.3-lu-decomposition}
+
+In \(LU\) decomposition, the goal is to factor the original matrix \(A\)
+into lower and upper triangular matrices, respectively. This is
+beneficial if we see multiple systems of equations where the set of
+coefficients on the unknowns are the same, but result in different set
+of solutions. By decomposing \(A\) into \(L\) and \(U,\) we don't need
+to solve the system from scratch every time. In LU decomposition,
+intermediate matrices \(L_0, L_1, ..., L_n\) are calculated. For the
+final relation, the lower and upper triangular matrices are respectively
+
+\[L = L_0^{-1}L_1^{-1}L_2^{-1}L_3^{-1} \cdots \qquad \text{ and } \qquad U = \cdots L_3L_2L_1L_0A.\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}matrix and vector from Eq 6.32}
+         \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+         \PY{n}{v} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{LU}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Defines a function to perform LU decomposition}
+         \PY{l+s+sd}{        on a matrix A based on gausslim.py from book\PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+             \PY{n}{U} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+             \PY{n}{L} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{]}\PY{p}{,}\PY{n+nb}{float}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}Gaussian elimination}
+             \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{L}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{m}\PY{p}{]} \PY{o}{=} \PY{n}{U}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+         
+                 \PY{c+c1}{\PYZsh{}Division by diagonal element}
+                 \PY{n}{div} \PY{o}{=} \PY{n}{U}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+                 \PY{n}{U}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{div}
+         
+                 \PY{c+c1}{\PYZsh{}subtract from lower rows}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{mult} \PY{o}{=} \PY{n}{U}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+                     \PY{n}{U}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mult} \PY{o}{*} \PY{n}{U}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+         
+             \PY{k}{return} \PY{n}{L}\PY{p}{,}\PY{n}{U}
+         
+         \PY{n}{L}\PY{p}{,} \PY{n}{U} \PY{o}{=} \PY{n}{LU}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+         
+         \PY{n}{L}\PY{n+nd}{@U}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} array([[ 2.,  1.,  4.,  1.],
+                [ 3.,  4., -1., -1.],
+                [ 1., -4.,  1.,  5.],
+                [ 2., -2.,  1.,  3.]])
+\end{Verbatim}
+            
+    So, we recovered the original matrix \(A\) when the matrices \(L\) and
+\(U\) are multiplied together. Now, implementing double
+backsubstitution, the equation \(A\mathbf{x} = \mathbf{v}\) can be
+solved as
+
+\[LU\mathbf{x} = \mathbf{v}\] in two steps such that
+\[U\mathbf{x} = \mathbf{y} \text{ and } L\mathbf{y} = \mathbf{v}.\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}LU decomposition with double backsubstitution}
+         \PY{k}{def} \PY{n+nf}{LU\PYZus{}with\PYZus{}DB}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{v}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Defines a function to perform LU decomposition}
+         \PY{l+s+sd}{        on a matrix A based on gausslim.py from book.}
+         \PY{l+s+sd}{        Then uses double backsubstitution to solve}
+         \PY{l+s+sd}{        system LUx = v\PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+             \PY{n}{U} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+             \PY{n}{L} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{]}\PY{p}{,}\PY{n+nb}{float}\PY{p}{)}
+             \PY{n}{w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{v}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}Gaussian elimination}
+             \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{L}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{m}\PY{p}{]} \PY{o}{=} \PY{n}{U}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+         
+                 \PY{c+c1}{\PYZsh{}Division by diagonal element}
+                 \PY{n}{div} \PY{o}{=} \PY{n}{U}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+                 \PY{n}{U}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{div}
+                 \PY{n}{w}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{div}
+                 
+                 \PY{c+c1}{\PYZsh{}subtract from lower rows}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{mult} \PY{o}{=} \PY{n}{U}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+                     \PY{n}{U}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mult} \PY{o}{*} \PY{n}{U}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+                     \PY{n}{w}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mult} \PY{o}{*} \PY{n}{w}\PY{p}{[}\PY{n}{m}\PY{p}{]}
+         
+             \PY{c+c1}{\PYZsh{}first backsubstitution}
+             \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+             \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{y}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{n}{m}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{y}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{U}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                     
+             \PY{c+c1}{\PYZsh{}second backsubstitution}
+             \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+             \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{x}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{=} \PY{n}{y}\PY{p}{[}\PY{n}{m}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{x}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{L}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                       
+             \PY{k}{return} \PY{n}{x}
+         
+         \PY{n}{LU\PYZus{}with\PYZus{}DB}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{v}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} array([ 2., -1., -2.,  1.])
+\end{Verbatim}
+            
+    So we arrive at the solution \(\mathbf{x} = \begin{pmatrix} 2, \
+-1, \
+-2, \
+1 \end{pmatrix}^\text{T},\) which is confirmed by the solve function
+from the numpy library below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{LA}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{v}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} array([ 2., -1., -2.,  1.])
+\end{Verbatim}
+            
+    \section{CP 6.4 A circuit of resistors
+(revisited)}\label{cp-6.4-a-circuit-of-resistors-revisited}
+
+Now, I'll solve the same circuit from exercise 6.1 using the built-in
+functionality of numpy. The physical equations I derived still hold and
+will form the matrix and solution space we solve for. The system of
+equations is \[4V_1 - V_2 - V_3 - V_4 = V_+\] \[3V_2 - V_1 - V_4 = 0\]
+\[3V_3 - V_1 - V_4 = V_+\] \[4V_4 - V_1 - V_2 - V_3 = 0\] where again we
+have it in matrix form given by \(A\mathbf{x} = \mathbf{v}\) with
+
+\(A = \begin{pmatrix}  4 & -1 & -1 & -1 \\  -1 & 3 & 0 & -1 \\  -1 & 0 & 3 & -1 \\  -1 & -1 & -1 & 4 \end{pmatrix} \text{, }\)
+\(\mathbf{x} = \begin{pmatrix} V_1 \\ V_2 \\ V_3 \\ V_4 \end{pmatrix} \text{, and }\)
+\(\mathbf{v} = \begin{pmatrix} V_+ \\ 0 \\ V_+ \\ 0 \end{pmatrix}.\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+         
+         Vp = 5 \PYZsh{}volts
+         A = np.array([[4,\PYZhy{}1,\PYZhy{}1,\PYZhy{}1],
+                       [\PYZhy{}1,3,0,\PYZhy{}1],
+                       [\PYZhy{}1,0,3,\PYZhy{}1],
+                       [\PYZhy{}1,\PYZhy{}1,\PYZhy{}1,4]], float)
+         v = np.array([Vp,0,Vp,0], float)
+         
+         x = LA.solve(A,v)
+         x
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CPU times: user 463 µs, sys: 270 µs, total: 733 µs
+Wall time: 596 µs
+
+    \end{Verbatim}
+
+    This is the same answer given to us by the "hand made" Gaussian
+elimination function whereas in this case it took approximately a fourth
+to a fifth of the time to run, which was negligible for such a small
+system, but could prove importantly different for larger cases.
+
+    \section{CP 6.7 A chain of resistors}\label{cp-6.7-a-chain-of-resistors}
+
+Ohm's law tells us that \(V = IR\), and Kirchhoff's current junction law
+says that \(\sum_i I_i = 0\) for a given junction in a circuit. So by
+Ohm's law, the currents flowing into the junction 1 are
+\(\frac{V_1 - V_+}{R},\) \(\frac{V_1 - V_2}{R},\) and
+\(\frac{V_1 - V_3}{R}.\) So the Kirchhoff's junction rule for 1 gives
+the equation
+
+\[\frac{V_1 - V_+}{R} + \frac{V_1 - V_2}{R} + \frac{V_1 - V_3}{R} = 0.\]
+
+Multiplying through by the common denominator \(R\) and collecting like
+terms and unknowns gives the first equation in the system provided in
+the book:
+
+\[3V_1 - V_2 -V_3 = V_+.\]
+
+The \(1^\text{st}\) and \(N^\text{th}\) junction are the edge cases
+where only three wires connect to the junction and hence only three
+currents flow in/out. Every other junction in the chain will have four
+currents flowing in/out that correspond to currents flowing from the
+\(i^\text{th} -2\), \(i^\text{th} -1\), \(i^\text{th} +1\), and
+\(i^\text{th}+2\) junctions. Similarly, \(V_+\) will not be the
+potential at an adjacent junction for any other than the first and
+second, so the second also becomes an edge case. We can write the
+general equation as
+
+\[\frac{V_i - V_{i-2}}{R} + \frac{V_i - V_{i-1}}{R} + \frac{V_i - V_{i+1}}{R} + \frac{V_i - V_{i+2}}{R} = 0.\]
+
+Once we have this, the system provided in the book is clearly reached
+where
+
+\[-V_{i-2} - V_{i-1} + 4V_i - V_{i+1} - V_{i+2} = 0.\]
+
+We can rewrite this system of equations in matrix form that satisfies
+the relation \(A\mathbf{v} = \mathbf{w}.\) These are given by
+\(A\mathbf{x} = \mathbf{v}\) with
+
+\(A = \begin{pmatrix}  3 & -1 & -1 & 0 & 0 & 0 & \cdots & 0 \\  -1 & 4 & -1 & -1 & 0 & 0 & \cdots & 0 \\  -1 & -1 & 4 & -1 & -1& 0 & \cdots & 0 \\  0 &-1 & -1 & 4 & -1 & -1& \cdots & 0 \\  \vdots & \vdots & \vdots & \vdots & \vdots &\vdots & \ddots & \vdots \\  0 &\cdots& -1&-1&4&-1&-1&0\\  0&\cdots&0&-1&-1&4&-1&-1 \\  0&\cdots&0&0&-1 & -1 & 4 & -1 \\  0 & \cdots &0&0& 0 & -1 & -1 & 3 \end{pmatrix} \text{, }\)
+\(\mathbf{v} = \begin{pmatrix} V_1 \\ V_2 \\ V_3 \\ V_4 \\ \vdots \\ V_{N-3} \\ V_{N-2} \\ V_{N-1} \\ V_N \end{pmatrix} \text{, and }\)
+\(\mathbf{w} = \begin{pmatrix} V_+ \\ V_+ \\ 0 \\ 0 \\ 0 \\ \vdots \\ 0 \\ 0 \\ 0 \end{pmatrix}.\)
+
+Because all the points in the circuit are connected to at most 4 other
+points, many of the off-diagonal elements are zero. We see that are
+matrix of coefficients \(A\) is banded and can thus be solved in a less
+computationally intensive manner than iterating through every element.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Solving a banded system of linear equations as defined}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    by Mark Newman used for the following problems in the}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    homework. I edited the numpy functions, adding the}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    prefix \PYZsq{}np.\PYZsq{} so it would run properly in my notebook\PYZsq{}\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{k}{def} \PY{n+nf}{banded}\PY{p}{(}\PY{n}{Aa}\PY{p}{,}\PY{n}{va}\PY{p}{,}\PY{n}{up}\PY{p}{,}\PY{n}{down}\PY{p}{)}\PY{p}{:}
+         
+             \PY{c+c1}{\PYZsh{} Copy the inputs and determine the size of the system}
+             \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{Aa}\PY{p}{)}
+             \PY{n}{v} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{va}\PY{p}{)}
+             \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{v}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Gaussian elimination}
+             \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+         
+                 \PY{c+c1}{\PYZsh{} Normalization factor}
+                 \PY{n}{div} \PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{up}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+         
+                 \PY{c+c1}{\PYZsh{} Update the vector first}
+                 \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{div}
+                 \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{down}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{m}\PY{o}{+}\PY{n}{k}\PY{o}{\PYZlt{}}\PY{n}{N}\PY{p}{:}
+                         \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{o}{+}\PY{n}{k}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{up}\PY{o}{+}\PY{n}{k}\PY{p}{,}\PY{n}{m}\PY{p}{]}\PY{o}{*}\PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]}
+         
+                 \PY{c+c1}{\PYZsh{} Now normalize the pivot row of A and subtract from lower ones}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{up}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{j} \PY{o}{=} \PY{n}{m} \PY{o}{+} \PY{n}{up} \PY{o}{\PYZhy{}} \PY{n}{i}
+                     \PY{k}{if} \PY{n}{j}\PY{o}{\PYZlt{}}\PY{n}{N}\PY{p}{:}
+                         \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{div}
+                         \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{down}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                             \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{n}{k}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{up}\PY{o}{+}\PY{n}{k}\PY{p}{,}\PY{n}{m}\PY{p}{]}\PY{o}{*}\PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}
+         
+             \PY{c+c1}{\PYZsh{} Backsubstitution}
+             \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{up}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{j} \PY{o}{=} \PY{n}{m} \PY{o}{+} \PY{n}{up} \PY{o}{\PYZhy{}} \PY{n}{i}
+                     \PY{k}{if} \PY{n}{j}\PY{o}{\PYZlt{}}\PY{n}{N}\PY{p}{:}
+                         \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{o}{*}\PY{n}{v}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+         
+             \PY{k}{return} \PY{n}{v}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{}my banded system function solver}
+         \PY{k}{def} \PY{n+nf}{banded\PYZus{}solve}\PY{p}{(}\PY{n}{Aa}\PY{p}{,}\PY{n}{va}\PY{p}{,}\PY{n}{bw}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Solves banded system of linear equations}
+         \PY{l+s+sd}{        with bandwidth bw above and below diagonal.}
+         \PY{l+s+sd}{        Takes an NxN matrix, vector, and number of}
+         \PY{l+s+sd}{        elements above and below diagonal to look at}
+         \PY{l+s+sd}{        as arguments.\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+             \PY{c+c1}{\PYZsh{} Copy the inputs and determine the size of the system}
+             \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{Aa}\PY{p}{)}
+             \PY{n}{v} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{va}\PY{p}{)}
+             \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{v}\PY{p}{)}
+             \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{}variable to have something to do in except clause}
+             
+             \PY{c+c1}{\PYZsh{}Gaussian elimination program w/out partial pivoting}
+             \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+         
+                 \PY{c+c1}{\PYZsh{}Division by diagonal element}
+                 \PY{n}{div} \PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+                 \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{m}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{div}
+                 
+                 \PY{k}{try}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{o}{\PYZhy{}}\PY{n}{bw}\PY{p}{,}\PY{n}{m}\PY{o}{+}\PY{n}{bw}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{div}
+                 \PY{k}{except}\PY{p}{:}
+                     \PY{n}{s} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                     
+                 \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{div}
+         
+                 \PY{c+c1}{\PYZsh{}subtract from lower rows}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{mult} \PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+                     \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{m}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mult} \PY{o}{*} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{m}\PY{p}{]}
+                     
+                     \PY{k}{try}\PY{p}{:}
+                         \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{o}{\PYZhy{}}\PY{n}{bw}\PY{p}{,}\PY{n}{m}\PY{o}{+}\PY{n}{bw}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                             \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mult} \PY{o}{*} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{j}\PY{p}{]}
+                     \PY{k}{except}\PY{p}{:}
+                         \PY{n}{s} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                         
+                     \PY{n}{v}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mult} \PY{o}{*} \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]}
+         
+             \PY{c+c1}{\PYZsh{}backsubstitution}
+             \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+             \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{x}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{=} \PY{n}{v}\PY{p}{[}\PY{n}{m}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{x}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{A}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+         
+             \PY{k}{return} \PY{n}{x}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{}cell to define problem specific matrices and vectors}
+         \PY{n}{Vp} \PY{o}{=} \PY{l+m+mi}{5} \PY{c+c1}{\PYZsh{}volts}
+         \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{6}
+         
+         \PY{c+c1}{\PYZsh{}matrix for my function}
+         \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{]}\PY{p}{,}\PY{n+nb}{float}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+             \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{4}
+             \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+             \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+             \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+             \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         
+         \PY{n}{A}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{A}\PY{p}{[}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{A}\PY{p}{[}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{A}\PY{p}{[}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         \PY{n}{A}\PY{p}{[}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         
+         
+         \PY{c+c1}{\PYZsh{}matrix for banded.py function}
+         \PY{n}{B} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{N}\PY{p}{]}\PY{p}{,}\PY{n+nb}{float}\PY{p}{)}
+         \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         
+         \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{3}
+         
+         \PY{n}{w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n+nb}{float}\PY{p}{)}
+         \PY{n}{w}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{Vp}
+         \PY{n}{w}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{Vp}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{banded}\PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{banded\PYZus{}solve}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{LA}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 3.7254902   3.43137255  2.74509804  2.25490196  1.56862745  1.2745098 ]
+[ 3.7254902   3.43137255  2.74509804  2.25490196  1.56862745  1.2745098 ]
+[ 3.7254902   3.43137255  2.74509804  2.25490196  1.56862745  1.2745098 ]
+
+    \end{Verbatim}
+
+    So for the circuit where \(N=6\), the results of the function I wrote to
+solve banded systems of linear equations match the results of Newman's
+function and the function in the numpy.linalg library. For the case
+where \(N=10000,\) the results also match the results of the other
+functions. I'll graph the voltages at each point next.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{}cell to define problem specific matrices and vectors}
+         \PY{n}{Vp} \PY{o}{=} \PY{l+m+mi}{5} \PY{c+c1}{\PYZsh{}volts}
+         \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{10000}
+         
+         \PY{c+c1}{\PYZsh{}matrix for my function}
+         \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{]}\PY{p}{,}\PY{n+nb}{float}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+             \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{4}
+             \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+             \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+             \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+             \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         
+         \PY{n}{A}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{A}\PY{p}{[}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{A}\PY{p}{[}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{A}\PY{p}{[}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         \PY{n}{A}\PY{p}{[}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         
+         \PY{n}{w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n+nb}{float}\PY{p}{)}
+         \PY{n}{w}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{Vp}
+         \PY{n}{w}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{Vp}
+         
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10001}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{banded\PYZus{}solve}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         
+         \PY{n}{fig3}\PY{p}{,} \PY{n}{ax3} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}increases readability of plot}
+         \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A Chain of Resistors}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Internal Point}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Internal Voltage (V)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{CP 6.8 The QR algorithm}\label{cp-6.8-the-qr-algorithm}
+
+The problem introduces the following relations given the column vectors
+\(\mathbf{a}_0, \mathbf{a}_1, ..., \mathbf{a}_{N-1}\) of the matrix
+\(A\):
+
+\[\mathbf{u}_i = \mathbf{a}_i - \sum_{j=0}^{i-1} (\mathbf{q}_j\cdot\mathbf{a}_i) \mathbf{q}_j \qquad \text{ and } \qquad \mathbf{q}_i = {\mathbf{u}_i\over|\mathbf{u}_i|}.\]
+
+From this we can rearrange the equations to give us a system of
+equations that begins as
+
+\[\mathbf{a}_0 = |\mathbf{u}_0|\,\mathbf{q}_0, \qquad \qquad \qquad \qquad \\
+\mathbf{a}_1 = |\mathbf{u}_1|\,\mathbf{q}_1 + (\mathbf{q}_0\cdot\mathbf{a}_1) \mathbf{q}_0, \qquad \qquad\\
+\mathbf{a}_2 = |\mathbf{u}_2|\,\mathbf{q}_2 + (\mathbf{q}_0\cdot\mathbf{a}_2) \mathbf{q}_0
+              + (\mathbf{q}_1\cdot\mathbf{a}_2) \mathbf{q}_1.\]
+
+These can be written in matrix form as \[A = \begin{pmatrix}
+            | & | & | & \cdots \\
+            \mathbf{a}_0 & \mathbf{a}_1 & \mathbf{a}_2 & \cdots \\
+            | & | & | & \cdots
+          \end{pmatrix}
+ =
+\begin{pmatrix}
+  | & | & | & \cdots \\
+  \mathbf{q}_0 & \mathbf{q}_1 & \mathbf{q}_2 & \cdots \\
+  | & | & | & \cdots
+\end{pmatrix}
+\begin{pmatrix}
+|\mathbf{u}_0| & \mathbf{q}_0\cdot\mathbf{a}_1 & \mathbf{q}_0\cdot\mathbf{a}_2 & \cdots \\
+0           & |\mathbf{u}_1| & \mathbf{q}_1\cdot\mathbf{a}_2 & \cdots \\
+0           & 0           & |\mathbf{u}_2| & \cdots
+\end{pmatrix} = QR.\]
+
+Where \(Q\) is the orthonormal and \(R\) is upper triangular, so we have
+successfully completed the QR decomposition. We can test the QR
+decomposition on the matrix \(A\) to make sure we get back the same
+matrix.
+
+\[{A} = \begin{pmatrix}
+            1 & 4 & 8 & 4 \\
+            4 & 2 & 3 & 7 \\
+            8 & 3 & 6 & 9 \\
+            4 & 7 & 9 & 2
+          \end{pmatrix}.\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{QR}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}With a matrix A as its argument, finds QR decomposition}
+         \PY{l+s+sd}{        and returns those two matrices\PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+             \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+             \PY{n}{u} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+             \PY{n}{q} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}calculates orthonormal Q and intermediate U}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{s} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{q}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{,}\PY{n}{a}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{n}{q}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{j}\PY{p}{]}
+                     
+                 \PY{n}{u}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{a}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{s}
+                 \PY{n}{q}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{u}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{/} \PY{n}{LA}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{u}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}q[:,0] *= \PYZhy{}1}
+             
+             \PY{n}{r} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}calculates upper triangular R}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{r}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{LA}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{u}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{r}\PY{p}{[}\PY{n}{j}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{q}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{,}\PY{n}{a}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                 
+             \PY{k}{return} \PY{n}{q}\PY{p}{,}\PY{n}{r}
+         
+         \PY{n}{q}\PY{p}{,} \PY{n}{r} \PY{o}{=} \PY{n}{QR}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The orthonormal matrix Q is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{n+nb}{print}\PY{p}{(}\PY{n}{q}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The upper triangular matrix R is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{n+nb}{print}\PY{p}{(}\PY{n}{r}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Multiplied together, they return A.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q}\PY{n+nd}{@r}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The orthonormal matrix Q is
+[[ 0.10153462  0.558463    0.80981107  0.1483773 ]
+ [ 0.40613847 -0.10686638 -0.14147555  0.8964462 ]
+ [ 0.81227693 -0.38092692  0.22995024 -0.37712564]
+ [ 0.40613847  0.72910447 -0.5208777  -0.17928924]]
+
+
+The upper triangular matrix R is
+[[  9.8488578    6.49821546  10.55960012  11.37187705]
+ [  0.           5.98106979   8.4234836   -0.484346  ]
+ [  0.           0.           2.74586406   3.27671222]
+ [  0.           0.           0.           3.11592335]]
+
+
+Multiplied together, they return A.
+[[ 1.  4.  8.  4.]
+ [ 4.  2.  3.  7.]
+ [ 8.  3.  6.  9.]
+ [ 4.  7.  9.  2.]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{def} \PY{n+nf}{eigenvalues}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}This function returns the eigenvalues of a matrix}
+         \PY{l+s+sd}{        through QR decomposition and then diagonalization.}
+         \PY{l+s+sd}{        It\PYZsq{}s tolerance is 10\PYZca{}\PYZhy{}6 for non\PYZhy{}diagonal elements\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+             \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{A}\PY{p}{)} \PY{c+c1}{\PYZsh{}will be the diagonalized matrix}
+             \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+             \PY{n}{epsilon} \PY{o}{=} \PY{l+m+mf}{10e\PYZhy{}6}
+             \PY{n}{V} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{identity}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+             \PY{n}{max\PYZus{}value} \PY{o}{=} \PY{l+m+mi}{1}
+             
+             \PY{c+c1}{\PYZsh{}runs until a certain accuracy has been achieved}
+             \PY{k}{while} \PY{n}{max\PYZus{}value} \PY{o}{\PYZgt{}} \PY{n}{epsilon}\PY{p}{:}
+                 \PY{n}{Q}\PY{p}{,}\PY{n}{R} \PY{o}{=} \PY{n}{QR}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+                 \PY{n}{a} \PY{o}{=} \PY{n}{R}\PY{n+nd}{@Q}
+                 \PY{n}{V} \PY{o}{=} \PY{n}{V}\PY{n+nd}{@Q}
+         
+                 \PY{c+c1}{\PYZsh{}finds largest off\PYZhy{}diagonal element by masking diagonal}
+                 \PY{n}{mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{bool}\PY{p}{)}
+                 \PY{n}{np}\PY{o}{.}\PY{n}{fill\PYZus{}diagonal}\PY{p}{(}\PY{n}{mask}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n}{max\PYZus{}value} \PY{o}{=} \PY{n}{a}\PY{p}{[}\PY{n}{mask}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{eigvals} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n+nb}{float}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{eigvals}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{a}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{i}\PY{p}{]}
+                 
+             \PY{k}{return} \PY{n}{eigvals}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The eigenvalues of A match the expected values.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{eigenvalues}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{p}{)} 
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The eigenvalues of A match the expected values.
+[ 21.  -8.  -3.   1.]
+
+    \end{Verbatim}
+
+    \section{CP 6.9 Asymmetric quantum
+well}\label{cp-6.9-asymmetric-quantum-well}
+
+Unlike the previous qunatum well problem, the asymmetry of this problem
+prevents it from being solved analytically, however formatting it as a
+system of equations allows it to be solved numerically. The particle in
+the given well obeys the relation \(\mathbf{H}\psi(x) = E\psi(x)\) where
+\[\mathbf{H} = - {\hbar^2\over2M}\,{d^2\over d x^2} + V(x).\]
+
+We can assume the wavefunction goes to zero outside the well because the
+potential is infinitely high for \(x<0\) and \(x>L.\) Thus we can
+Fourier transform the the wavefunction
+
+\[\psi(x) = \sum_{n=1}^\infty \psi_n \sin {\pi n x\over L}.\]
+
+The Schrodinger equation \(\mathbf{H}\psi = E\psi\) implies that
+\[\sum_{n=1}^\infty \psi_n \int_0^L \sin{\pi m x\over L} \mathbf{H}\sin{\pi n x\over L} \> d x = \tfrac12 L E \psi_m.\]
+
+    This can be derived by expanding the Schrodinger equation so that it
+reads
+\[\mathbf{H}\biggr(\sum_{n=1}^\infty \psi_n \sin {\pi n x\over L}\biggr) = E\biggr(\sum_{m=1}^\infty \psi_m \sin {\pi m x\over L}\biggr).\]
+
+From here, we can multiply both sides by \(\sin{\pi m x \over L}\) and
+reorder the terms on each side so that we have
+
+\[\biggr(\sum_{n=1}^\infty \psi_n \sin {\pi m x\over L} \mathbf{H} \sin {\pi n x\over L}\biggr) = E\biggr(\sum_{m=1}^\infty \psi_m \sin {\pi m x\over L}\sin {\pi m x\over L}\biggr).\]
+
+We can integrate both sides from \(0\) to \(L\) with respect to \(x\)
+giving
+
+\[\sum_{n=1}^\infty \psi_n \int_0^L \biggr(\sin {\pi m x\over L} \mathbf{H} \sin {\pi n x\over L}\biggr)\ dx = E \sum_{m=1}^\infty \psi_m \int_0^L \sin {\pi m x\over L}\sin {\pi m x\over L}\ dx = E \sum_{m=1}^\infty \psi_m {L \over 2}\]
+
+by properties of Fourier Series. Thus we have our final result. The
+Schrodinger equation combined with the fact that the potential is
+infinite outside of the bounds of the quantum well together imply that
+
+\[\sum_{n=1}^\infty \psi_n \int_0^L \sin {\pi m x\over L} \mathbf{H} \sin {\pi n x\over L}\ dx = \tfrac12 LE \psi_m.\]
+
+    If the Hamiltonian matrix \(\mathbf{H}\) is defined according to
+
+\[H_{mn} = {2\over L} \int_0^L \sin{\pi m x\over L} \mathbf{H}\sin{\pi n x\over L} \ d x\]
+which can be expanded to include the value of the Hamiltonian
+
+\[H_{mn} = {2\over L} \int_0^L \sin{\pi m x\over L} \biggl[ -{\hbar^2\over2M}\,{d^2\over d x^2} + V(x) \biggr] \sin{\pi n x\over L} \ d x.\]
+
+Taking the case where \(V(x) = {ax \over L}\) gives the expression
+
+\[H_{mn} = {2\over L} \int_0^L \sin{\pi m x\over L} \biggl[ -{\hbar^2\over2M}\,{d^2\over d x^2} + {ax \over L} \biggr] \sin{\pi n x\over L} \ d x.\]
+
+This can be expanded so
+\[H_{mn} = {2\over L}\Biggr[ \int_0^L \frac{-\hbar^2}{2M}\sin{\pi m x\over L} \biggr({d^2\over d x^2} \sin{\pi n x\over L}\biggr) \ d x + \int_0^L {ax \over L}\sin{\pi m x\over L} \sin{\pi n x\over L} \ d x \Biggr].\]
+
+\[H_{mn} = {2\over L}\Biggr[\frac{-\hbar^2}{2M}\int_0^L \sin{\pi m x\over L} \biggr(-\biggr(\frac{\pi n}{L}\biggr)^2 \sin{\pi n x\over L}\biggr) \ d x
++ {a \over L}\int_0^L x\sin{\pi m x\over L} \sin{\pi n x\over L} \ d x \Biggr].\]
+
+\[H_{mn} = {2\over L}\Biggr[\frac{\hbar^2}{2M}\biggr(\frac{\pi n}{L}\biggr)^2\int_0^L \sin{\pi m x\over L} \sin{\pi n x\over L} \ d x
++ {a \over L}\int_0^L x\sin{\pi m x\over L} \sin{\pi n x\over L} \ d x \Biggr].\]
+
+This is the point where we create separate expressions for the cases
+where \(m=n\) and where \(m \ne n\) but one is even and one is odd. This
+is because the integrals take on different values based on the
+relationship between \(m\) and \(n.\) From the givens in the problem
+
+\[\hspace{-2em}
+\int_0^L x \sin{\pi m x\over L} \sin{\pi n x\over L} \ d x
+  = \begin{cases}
+      0 & \quad\mbox{if $m\ne n$ and both even or both odd,} \\
+      {\displaystyle-\biggl({2L\over\pi}\biggr)^2{mn\over(m^2-n^2)^2}}
+        & \quad\mbox{if $m\ne n$ and one is even, one is odd,} \\
+      L^2/4 & \quad\mbox{if $m=n$}
+    \end{cases}\]
+
+and
+
+\[\int_0^L \sin {\pi m x\over L} \,\sin{\pi n x\over L} \ d x
+  = \begin{cases}
+      L/2 & \qquad\mbox{if $m=n$,} \\
+      0          & \qquad\mbox{otherwise.}
+    \end{cases}\]
+
+    So after doing the algebra for the cases, we are left with three
+expressions expressions for the three different cases (the second
+integral expression's "otherwise" case is split between two of the above
+cases.
+
+\[H_{mn} = {2\over L}\Biggr[\frac{\hbar^2}{2M}\biggr(\frac{\pi n}{L}\biggr)^2\int_0^L \sin{\pi m x\over L} \sin{\pi n x\over L} \ d x
++ {a \over L}\int_0^L x\sin{\pi m x\over L} \sin{\pi n x\over L} \ d x \Biggr].\]
+
+The diagonal elements of the Hamiltonian (when \(m=n\)) are given by
+
+\[H_{mn} = {2\over L}\Biggr[\frac{\hbar^2}{2M}\biggr(\frac{\pi n}{L}\biggr)^2 \frac L2 + \frac{aL^2}{4L} \Biggr]\ \forall\ m=n\]
+
+\[H_{mn} = \frac{\hbar^2}{2M}\biggr(\frac{\pi n}{L}\biggr)^2 + \frac a2 \ \forall\ m=n. \qquad \qquad \qquad \qquad (1)\]
+
+The off-diagonal elements of the Hamiltonian (for the cases \(m\ne n\)
+but only one is even) are gven by
+
+\[H_{mn} = -\frac 2L\biggr({a \over L}\biggr)\biggl({2L\over\pi}\biggr)^2{mn\over(m^2-n^2)^2} \ \forall\ m \ne n \text{ and one is even, one is odd}\]
+
+\[H_{mn} = \frac{-8amn}{\pi^2(m^2-n^2)^2} \ \forall\ m \ne n \text{ and one is even, one is odd}. \qquad (2)\]
+
+Trivially, we have that
+
+\[H_{mn} = 0 \ \forall \ m\ne n \text{ and both even, or both odd}. \qquad \qquad \qquad (3)\]
+
+And thus with equations (1), (2) and (3), the Hamiltonian can be
+populated. After, the diagonalized Hamiltonian of it yields the
+eigenvalues, which are the observable energy states we can find the
+particle in if exposed to this potential in a quantum well.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{}defines constants}
+         \PY{n}{L} \PY{o}{=} \PY{l+m+mi}{5} \PY{c+c1}{\PYZsh{}width of well (m) = 5 angstroms}
+         \PY{n}{a} \PY{o}{=} \PY{l+m+mi}{10} \PY{c+c1}{\PYZsh{}potential parameter (eV)}
+         \PY{n}{m} \PY{o}{=} \PY{n}{C}\PY{o}{.}\PY{n}{m\PYZus{}e} \PY{c+c1}{\PYZsh{}mass of electron in the well (kg)}
+         \PY{n}{h} \PY{o}{=} \PY{n}{C}\PY{o}{.}\PY{n}{hbar} \PY{c+c1}{\PYZsh{}Planck\PYZsq{}s reduced constant}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{k}{def} \PY{n+nf}{Hmn}\PY{p}{(}\PY{n}{m}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Returns the mn element of the Hamiltonian H}
+         \PY{l+s+sd}{        based on the parameters specified above\PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{k}{if} \PY{n}{m}\PY{o}{==}\PY{n}{n}\PY{p}{:}
+                 \PY{k}{return} \PY{p}{(}\PY{p}{(}\PY{n}{h}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{m}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{L}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{a}\PY{o}{/}\PY{l+m+mi}{2}
+             \PY{k}{elif} \PY{n}{m}\PY{o}{!=}\PY{n}{n}\PY{p}{:}
+                 \PY{k}{if} \PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{n}{n}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                     \PY{n}{num} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{o}{*}\PY{n}{a}\PY{o}{*}\PY{n}{m}\PY{o}{*}\PY{n}{n}
+                     \PY{n}{den} \PY{o}{=} \PY{p}{(}\PY{n}{pi}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{p}{(}\PY{n}{m}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{n}{n}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+                     \PY{k}{return} \PY{n}{num} \PY{o}{/} \PY{n}{den}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{return} \PY{l+m+mi}{0}
+         
+         \PY{k}{def} \PY{n+nf}{Hamiltonian}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Creates the Hamiltonian for the given system}
+         \PY{l+s+sd}{        with dimensions NxN\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+             \PY{n}{H} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{]}\PY{p}{,} \PY{n+nb}{float}\PY{p}{)}
+             \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{H}\PY{p}{[}\PY{n}{m}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{Hmn}\PY{p}{(}\PY{n}{m}\PY{p}{,}\PY{n}{n}\PY{p}{)}
+                     
+             \PY{k}{return} \PY{n}{H}
+                     
+         \PY{n}{LA}\PY{o}{.}\PY{n}{eigvals}\PY{p}{(}\PY{n}{Hamiltonian}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The ground state eigenvalue is }\PY{l+s+si}{\PYZob{}:4.2f\PYZcb{}}\PY{l+s+s2}{ eV.}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+              \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{LA}\PY{o}{.}\PY{n}{eigvals}\PY{p}{(}\PY{n}{Hamiltonian}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The ground state eigenvalue is 5.84 eV.
+
+    \end{Verbatim}
+
+    \section{CP 6.16 The Lagrange point}\label{cp-6.16-the-lagrange-point}
+
+The distance between the Earth and the Moon where a satellite remains in
+synchronous orbit with the two is called the Lagrange point. At this
+point, the gravitational pull towards each of the Earth and the Moon
+creates the right balance of centripetal force for the orbit to be
+synchronous. If we assume circular orbits and that the mass of the Earth
+is much larger than either the Moon or the satellite, the Lagrange point
+\(L_1\) must satisfy this equation for \(r\)
+
+\[{GM\over r^2} - {Gm\over(R-r)^2} = \omega^2 r.\]
+
+    Say that the Earth and Moon have mass \(M\) and \(m\), respectively. Say
+the satellite in question has mass \(m_1\). Then, as can be seen in the
+diagram, the distance from the Earth to the satellite and from the Moon
+to the satellite are \(r\) and \(R-r\), respectively. So we can write
+the two forces acting on the satellite as
+\(F_\text{Earth} = \frac{GMm_1}{r^2}\) and
+\(F_\text{Moon} = \frac{Gmm_1}{(R-r)^2}.\) We can sum these forces to
+give the total force acting on the satellite as
+
+\[\frac{GMm_1}{r^2} - \frac{Gmm_1}{(R-r)^2} = m_1a_c = m_1 \biggr(\frac{v^2}{r}\biggr) = m_1 \omega^2 r\]
+
+because \(\omega = \frac vr.\) Now, dividing by \(m_1\) gives us the
+desired equation:
+
+\[{GM\over r^2} - {Gm\over(R-r)^2} = \omega^2 r.\]
+
+The general form of the secant method is to repeatedly solve the
+equation \[x_3 = x_2 - f(x_2)\frac{x_2 -x_1}{f(x_2)-f(x_1)}\]
+
+until the difference between \(x_3\) and \(x_2\) remains smaller than
+the desired accuracy for a few iterations. So in this case, we will be
+searching for \(r_3\) and comparing to the known value of the Lagrange
+point \(L_1 = 326045 \text{ km}\). If we call our error \(\delta,\) then
+\(\delta = r_3 - r_2.\) So we can write the error for the secant method
+as
+
+\[\delta = -f(r_2)\frac{r_2 -r_1}{f(r_2)-f(r_1)}.\]
+
+However, to solve this equation, it would be more useful if we write it
+as a function \(f(r)\), so multiplying out the fraction on the left hand
+side leaves us with
+
+\[{GM(R-r)^2} - {Gmr^2} = \omega^2 r^3(R-r)^2.\]
+
+We can then move everything to one side of the equation so that
+
+\[0 = {GM(R-r)^2} - {Gmr^2} - \omega^2 r^3(R-r)^2.\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{}defining constants}
+         \PY{n}{G} \PY{o}{=} \PY{n}{C}\PY{o}{.}\PY{n}{G} \PY{c+c1}{\PYZsh{}gravitational constant}
+         \PY{n}{M} \PY{o}{=} \PY{l+m+mf}{5.974e24} \PY{c+c1}{\PYZsh{}earth mass (kg)}
+         \PY{n}{m} \PY{o}{=} \PY{l+m+mf}{7.348e22} \PY{c+c1}{\PYZsh{}moon mass (kg)}
+         \PY{n}{R} \PY{o}{=} \PY{l+m+mf}{3.844e8} \PY{c+c1}{\PYZsh{}distance to moon (m)}
+         \PY{n}{omega} \PY{o}{=} \PY{l+m+mf}{2.662e\PYZhy{}6} \PY{c+c1}{\PYZsh{}angular velocity (s\PYZca{}\PYZhy{}1)}
+         
+         \PY{c+c1}{\PYZsh{}secant method test function}
+         \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{*}\PY{n}{tan}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{x}\PY{p}{)} \PY{o}{+} \PY{n}{exp}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{+} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}
+         
+         \PY{c+c1}{\PYZsh{}function for Lagrange point}
+         \PY{k}{def} \PY{n+nf}{g}\PY{p}{(}\PY{n}{r}\PY{p}{)}\PY{p}{:}
+             \PY{n}{p1} \PY{o}{=} \PY{n}{G}\PY{o}{*}\PY{n}{M}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{R}\PY{o}{\PYZhy{}}\PY{n}{r}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n}{p2} \PY{o}{=} \PY{n}{G}\PY{o}{*}\PY{n}{m}\PY{o}{*}\PY{p}{(}\PY{n}{r}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n}{p3} \PY{o}{=} \PY{p}{(}\PY{n}{omega}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{r}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{R}\PY{o}{\PYZhy{}}\PY{n}{r}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{k}{return} \PY{n}{p1} \PY{o}{\PYZhy{}} \PY{n}{p2} \PY{o}{\PYZhy{}} \PY{n}{p3}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k}{def} \PY{n+nf}{secant}\PY{p}{(}\PY{n}{r1}\PY{p}{,} \PY{n}{r2}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Given two starting points x1 and x2, this}
+         \PY{l+s+sd}{        approximates the root of a function to}
+         \PY{l+s+sd}{        four significant digits using the secant}
+         \PY{l+s+sd}{        method as described in the book\PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{n}{accuracy} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}5}
+             \PY{n}{delta} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{while} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{delta}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{accuracy}\PY{p}{:}
+                 \PY{n}{delta} \PY{o}{=} \PY{n}{g}\PY{p}{(}\PY{n}{r2}\PY{p}{)}\PY{o}{*}\PY{p}{(} \PY{p}{(}\PY{n}{r2}\PY{o}{\PYZhy{}}\PY{n}{r1}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{g}\PY{p}{(}\PY{n}{r2}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{g}\PY{p}{(}\PY{n}{r1}\PY{p}{)}\PY{p}{)} \PY{p}{)}
+                 \PY{n}{r1} \PY{o}{=} \PY{n}{r2}
+                 \PY{n}{r2} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{delta}
+                 
+             \PY{k}{return} \PY{n}{r2}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The Lagrange point is }\PY{l+s+si}{\PYZob{}:4.4f\PYZcb{}}\PY{l+s+s2}{ m from Earth.}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+               \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{secant}\PY{p}{(}\PY{l+m+mi}{100000}\PY{p}{,}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The Lagrange point is 326045420.2403 m from Earth.
+
+    \end{Verbatim}
+
+    This matches the known value of \(r_{L_1} = 326045 \text{ km}\).
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

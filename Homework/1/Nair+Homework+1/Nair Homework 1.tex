@@ -1,0 +1,678 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Homework 1 \\ \vspace{10mm}
+    {\large Varun Nair}}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}229}]:} \PY{o}{\PYZpc{}}\PY{k}{precision} \PYZpc{}g
+          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          \PY{o}{\PYZpc{}}\PY{k}{config} InlineBackend.figure\PYZus{}format = \PYZsq{}retina\PYZsq{}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}230}]:} \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{sqrt}\PY{p}{,} \PY{n}{pi}
+          \PY{k+kn}{from} \PY{n+nn}{cmath} \PY{k}{import} \PY{n}{sqrt} \PY{k}{as} \PY{n}{csqrt}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{constants} \PY{k}{as} \PY{n}{C}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{pyplot}
+\end{Verbatim}
+
+    \subsection{CP 2.5 Quantum Potential
+Step}\label{cp-2.5-quantum-potential-step}
+
+This problem is to find the transmission (T) and reflection (R)
+probabilities for a given particle (with mass and energy) and potential
+step based on the wavevector forms of the probabilities:
+
+\[T = \frac{4k_1k_2}{(k_1+k_2)^2} \ \textrm{ and } \ R = \left( \frac{k_1-k_2}{k_1+k_2} \right)^2.\]
+
+The wavevectors \(k_1\) and \(k_2\) are defined in their respective
+regions as
+
+\[k_1 = \frac{\sqrt{2mE}}{\hbar} \ \textrm{ and } \ k_2 = \frac{\sqrt{2m(E-V)}}{\hbar}\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}231}]:} \PY{c+c1}{\PYZsh{}This cell defines constants}
+          
+          \PY{n}{h} \PY{o}{=} \PY{l+m+mf}{6.626e\PYZhy{}34} \PY{c+c1}{\PYZsh{}in kg m\PYZca{}2 s\PYZca{}\PYZhy{}1}
+          \PY{n}{hbar} \PY{o}{=} \PY{n}{h} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}232}]:} \PY{c+c1}{\PYZsh{}defines wavevector functions}
+          
+          \PY{k}{def} \PY{n+nf}{k1}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{E}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{}m is mass and E is energy}
+              \PY{k}{return} \PY{p}{(}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{m}\PY{o}{*}\PY{n}{E}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{hbar}
+          
+          \PY{k}{def} \PY{n+nf}{k2}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{E}\PY{p}{,} \PY{n}{V}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{}V is height of potential step}
+              \PY{k}{return} \PY{p}{(}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{m}\PY{o}{*}\PY{p}{(}\PY{n}{E}\PY{o}{\PYZhy{}}\PY{n}{V}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{hbar}
+          
+          
+          \PY{c+c1}{\PYZsh{}probability functions defined below}
+          
+          \PY{k}{def} \PY{n+nf}{T}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{E}\PY{p}{,} \PY{n}{V}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{}transmission probability}
+              \PY{n}{num} \PY{o}{=} \PY{l+m+mi}{4} \PY{o}{*} \PY{n}{k1}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{E}\PY{p}{)} \PY{o}{*} \PY{n}{k2}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{E}\PY{p}{,} \PY{n}{V}\PY{p}{)}
+              \PY{n}{den} \PY{o}{=} \PY{p}{(}\PY{n}{k1}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{E}\PY{p}{)} \PY{o}{+} \PY{n}{k2}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{E}\PY{p}{,} \PY{n}{V}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+              \PY{k}{return} \PY{n}{num} \PY{o}{/} \PY{n}{den}
+          
+          \PY{k}{def} \PY{n+nf}{R}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{E}\PY{p}{,} \PY{n}{V}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{}reflection probability}
+              \PY{n}{num} \PY{o}{=} \PY{n}{k1}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{E}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{k2}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{E}\PY{p}{,} \PY{n}{V}\PY{p}{)}
+              \PY{n}{den} \PY{o}{=} \PY{n}{k1}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{E}\PY{p}{)} \PY{o}{+} \PY{n}{k2}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{E}\PY{p}{,} \PY{n}{V}\PY{p}{)}
+              \PY{k}{return} \PY{p}{(}\PY{n}{num} \PY{o}{/} \PY{n}{den}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}233}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{For a particle of mass 9.11e\PYZhy{}31 kg and energy 10 eV, it will have }\PY{l+s+se}{\PYZbs{}}
+          \PY{l+s+s2}{transmission probability T = }\PY{l+s+si}{\PYZob{}:4.3f\PYZcb{}}\PY{l+s+s2}{ and }\PY{l+s+se}{\PYZbs{}}
+          \PY{l+s+s2}{reflection probability R = }\PY{l+s+si}{\PYZob{}:4.3f\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}}
+          \PY{l+s+s2}{if it encounters a potential step of height 9 eV.}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{T}\PY{p}{(}\PY{l+m+mf}{9.11e\PYZhy{}31}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{,} \PY{n}{R}\PY{p}{(}\PY{l+m+mf}{9.11e\PYZhy{}31}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For a particle of mass 9.11e-31 kg and energy 10 eV, it will have transmission probability T = 0.730 and reflection probability R = 0.270 if it encounters a potential step of height 9 eV.
+
+    \end{Verbatim}
+
+    \subsection{CP 2.6 Planetary Orbits}\label{cp-2.6-planetary-orbits}
+
+Knowing the distance that a planet's perihelion and aphelion are from
+the sun and its linear velocity at one of those points is powerful,
+allowing one to calculate many facets about the planet's orbit.
+
+Among other things, you can calculate the following
+
+\begin{align*}
+\textrm{Semi-major axis:} \qquad a &= {\tiny\frac{1}{2}}(\ell_1+\ell_2), \\
+\textrm{Semi-minor axis:} \qquad b &= \sqrt{\ell_1\ell_2}\,, \\
+\textrm{Orbital period:} \hspace{1.80em}
+  T &= {2\pi ab\over\ell_1 v_1}\,, \\
+\textrm{Orbital eccentricity:} \qquad e &=
+  {\ell_2-\ell_1\over\ell_2+\ell_1}.
+\end{align*}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}234}]:} \PY{c+c1}{\PYZsh{}this defines constants}
+          
+          \PY{n}{M} \PY{o}{=} \PY{l+m+mf}{1.9891e30} \PY{c+c1}{\PYZsh{}mass of the sun in kg}
+          \PY{n}{G} \PY{o}{=} \PY{l+m+mf}{6.6738e\PYZhy{}11} \PY{c+c1}{\PYZsh{} gravitational constant in m\PYZca{}3 kg\PYZca{}\PYZhy{}1 s\PYZca{}\PYZhy{}2}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}235}]:} \PY{c+c1}{\PYZsh{}defining function to calculate period and eccentricity}
+          
+          \PY{k}{def} \PY{n+nf}{findv2}\PY{p}{(}\PY{n}{l1}\PY{p}{,} \PY{n}{v1}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}This function calculates the linear velocity of an object at its aphelion given distance and velocity at perihelion \PYZbs{}}
+          \PY{l+s+sd}{       by solving the quadratic equation ax**2 + bx + c = 0\PYZsq{}\PYZsq{}\PYZsq{}}
+              \PY{n}{a} \PY{o}{=} \PY{l+m+mi}{1}
+              \PY{n}{b} \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{G}\PY{o}{*}\PY{n}{M}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{l1} \PY{o}{*} \PY{n}{v1}\PY{p}{)}
+              \PY{n}{c} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{v1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{G}\PY{o}{*}\PY{n}{M}\PY{p}{)} \PY{o}{/} \PY{n}{l1}\PY{p}{)}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}the discriminant in the quadratic equation}
+              \PY{n}{disc} \PY{o}{=} \PY{n}{b}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{a}\PY{o}{*}\PY{n}{c}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}only returns 1 solutions because we are only interested in the smaller solution}
+              \PY{k}{return} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{b} \PY{o}{\PYZhy{}} \PY{n}{sqrt}\PY{p}{(}\PY{n}{disc}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{a}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{findl2}\PY{p}{(}\PY{n}{l1}\PY{p}{,} \PY{n}{v1}\PY{p}{,} \PY{n}{v2}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Finds distance from Sun to aphelion. Set equal to l2\PYZsq{}\PYZsq{}\PYZsq{}}
+              \PY{k}{return} \PY{p}{(}\PY{n}{l1}\PY{o}{*}\PY{n}{v1}\PY{p}{)} \PY{o}{/} \PY{n}{v2}
+          
+          \PY{k}{def} \PY{n+nf}{semimajor}\PY{p}{(}\PY{n}{l1}\PY{p}{,} \PY{n}{l2}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Finds semimajor axis of the orbit. Set equal to a.\PYZsq{}\PYZsq{}\PYZsq{}}
+              \PY{k}{return} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{p}{(}\PY{n}{l1}\PY{o}{+}\PY{n}{l2}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{semiminor}\PY{p}{(}\PY{n}{l1}\PY{p}{,} \PY{n}{l2}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Finds semiminor axis of the orbit. Set equal to b.\PYZsq{}\PYZsq{}\PYZsq{}}
+              \PY{k}{return} \PY{n}{sqrt}\PY{p}{(}\PY{n}{l1}\PY{o}{*}\PY{n}{l2}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{period}\PY{p}{(}\PY{n}{l1}\PY{p}{,} \PY{n}{v1}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Find the period of an object orbitting the Sun. Set equal to T.\PYZsq{}\PYZsq{}\PYZsq{}}
+              \PY{k}{return} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{o}{*}\PY{n}{a}\PY{o}{*}\PY{n}{b}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{l1}\PY{o}{*}\PY{n}{v1}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{eccentricity}\PY{p}{(}\PY{n}{l1}\PY{p}{,} \PY{n}{l2}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Finds the orbit\PYZsq{}s eccentricity. Set equal to ecc.\PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{k}{return} \PY{p}{(}\PY{n}{l2} \PY{o}{\PYZhy{}} \PY{n}{l1}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{l1} \PY{o}{+} \PY{n}{l2}\PY{p}{)}
+              
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}236}]:} \PY{k}{def} \PY{n+nf}{process}\PY{p}{(}\PY{n}{l1}\PY{p}{,} \PY{n}{v1}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Puts together individual functions to find period and eccentricity at once\PYZsq{}\PYZsq{}\PYZsq{}}
+              \PY{n}{v2} \PY{o}{=} \PY{n}{findv2}\PY{p}{(}\PY{n}{l1}\PY{p}{,} \PY{n}{v1}\PY{p}{)} \PY{c+c1}{\PYZsh{}units: m/s}
+              \PY{n}{l2} \PY{o}{=} \PY{n}{findl2}\PY{p}{(}\PY{n}{l1}\PY{p}{,} \PY{n}{v1}\PY{p}{,} \PY{n}{v2}\PY{p}{)} \PY{c+c1}{\PYZsh{}units: m}
+              \PY{n}{a} \PY{o}{=} \PY{n}{semimajor}\PY{p}{(}\PY{n}{l1}\PY{p}{,} \PY{n}{l2}\PY{p}{)} \PY{c+c1}{\PYZsh{}units: m}
+              \PY{n}{b} \PY{o}{=} \PY{n}{semiminor}\PY{p}{(}\PY{n}{l1}\PY{p}{,} \PY{n}{l2}\PY{p}{)} \PY{c+c1}{\PYZsh{}units: m}
+              
+              \PY{n}{T} \PY{o}{=} \PY{n}{period}\PY{p}{(}\PY{n}{l1}\PY{p}{,} \PY{n}{v1}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)} \PY{c+c1}{\PYZsh{}units: s}
+              \PY{n}{years} \PY{o}{=} \PY{n}{T} \PY{o}{/} \PY{l+m+mi}{31536000}
+              \PY{n}{ecc} \PY{o}{=} \PY{n}{eccentricity}\PY{p}{(}\PY{n}{l1}\PY{p}{,} \PY{n}{l2}\PY{p}{)}
+              
+              \PY{n}{output} \PY{o}{=} \PY{p}{[}\PY{n}{l2}\PY{p}{,} \PY{n}{v2}\PY{p}{,} \PY{n}{years}\PY{p}{,} \PY{n}{ecc}\PY{p}{]}
+              \PY{k}{return} \PY{n}{output}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}237}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{For the Earth...}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ the distance to the aphelion is }\PY{l+s+si}{\PYZob{}:5.3f\PYZcb{}}\PY{l+s+s2}{ m }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ velocity is }\PY{l+s+si}{\PYZob{}:5.3f\PYZcb{}}\PY{l+s+s2}{ m/s }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}}
+          \PY{l+s+s2}{orbital period is }\PY{l+s+si}{\PYZob{}:5.5f\PYZcb{}}\PY{l+s+s2}{ years }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ orbital eccentricity is }\PY{l+s+si}{\PYZob{}:5.5f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+                \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{process}\PY{p}{(}\PY{l+m+mf}{1.4710e11}\PY{p}{,} \PY{l+m+mf}{3.0287e4}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                       \PY{n}{process}\PY{p}{(}\PY{l+m+mf}{1.4710e11}\PY{p}{,} \PY{l+m+mf}{3.0287e4}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                       \PY{n}{process}\PY{p}{(}\PY{l+m+mf}{1.4710e11}\PY{p}{,} \PY{l+m+mf}{3.0287e4}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                       \PY{n}{process}\PY{p}{(}\PY{l+m+mf}{1.4710e11}\PY{p}{,} \PY{l+m+mf}{3.0287e4}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}Earth\PYZsq{}s numbers}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For the Earth{\ldots}
+ the distance to the aphelion is 152027197208.660 m 
+ velocity is 29305.399 m/s 
+ orbital period is 1.00022 years 
+ orbital eccentricity is 0.01647
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}238}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{For Halley}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s comet...}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ the distance to the aphelion is }\PY{l+s+si}{\PYZob{}:5.3f\PYZcb{}}\PY{l+s+s2}{ m }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ velocity is }\PY{l+s+si}{\PYZob{}:5.3f\PYZcb{}}\PY{l+s+s2}{ m/s }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}}
+          \PY{l+s+s2}{orbital period is }\PY{l+s+si}{\PYZob{}:5.5f\PYZcb{}}\PY{l+s+s2}{ years }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ orbital eccentricity is }\PY{l+s+si}{\PYZob{}:5.5f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+                \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{process}\PY{p}{(}\PY{l+m+mf}{8.7830e10}\PY{p}{,} \PY{l+m+mf}{5.4529e4}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                       \PY{n}{process}\PY{p}{(}\PY{l+m+mf}{8.7830e10}\PY{p}{,} \PY{l+m+mf}{5.4529e4}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                       \PY{n}{process}\PY{p}{(}\PY{l+m+mf}{8.7830e10}\PY{p}{,} \PY{l+m+mf}{5.4529e4}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                       \PY{n}{process}\PY{p}{(}\PY{l+m+mf}{8.7830e10}\PY{p}{,} \PY{l+m+mf}{5.4529e4}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}Halley\PYZsq{}s numbers}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For Halley's comet{\ldots}
+ the distance to the aphelion is 5282214660876.441 m 
+ velocity is 906.681 m/s 
+ orbital period is 76.08170 years 
+ orbital eccentricity is 0.96729
+
+    \end{Verbatim}
+
+    \subsection{CP 2.9 The Madelung
+constant}\label{cp-2.9-the-madelung-constant}
+
+The Madelung constant gives the electric potential in a solid based on
+the surrounding atoms. This is found by summing the potential due to all
+atoms as the number of atoms in all directions approaches infinity. The
+equation relating the Madelung constant to the total potential is
+
+\[V_\textrm{total} = \sum_{\substack{i,j,k=-L\\ \textrm{not }i=j=k=0}}^L
+                   \hspace{-0.5em} V(i,j,k)
+                 = {e\over4\pi\epsilon_0 a}\,M.\]
+
+Thus, we can write (omitting the conditions of the sum for brevity)
+
+\[M = \sum V(i,j,k) \ \frac{4\pi\epsilon_0 a}{e} = \sum \pm {e\over4\pi\epsilon_0 a\sqrt{i^2+j^2+k^2}} \ \frac{4\pi\epsilon_0 a}{e} = \pm\frac{1}{\sqrt{i^2+j^2+k^2}}.\]
+
+This allows us to see that the Madelung constant M (for the case where
+each atom is of unit charge) does not depend on anything other than the
+relative positions of the atoms to each other, i.e., the spacing between
+adjacent atoms does not affect its value.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}239}]:} \PY{k}{def} \PY{n+nf}{Madelung}\PY{p}{(}\PY{n}{L}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}The entire function for finding the Madelung constant for sodium chloride.}
+          \PY{l+s+sd}{       L is the number of atoms extending from origin\PYZsq{}\PYZsq{}\PYZsq{}}
+              \PY{n+nb}{sum} \PY{o}{=} \PY{l+m+mi}{0}
+              
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{L}\PY{p}{,} \PY{n}{L}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{L}\PY{p}{,} \PY{n}{L}\PY{p}{)}\PY{p}{:}
+                      \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{L}\PY{p}{,} \PY{n}{L}\PY{p}{)}\PY{p}{:}
+                          \PY{k}{if} \PY{n}{i} \PY{o}{==} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{j} \PY{o}{==} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{k} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                              \PY{k}{pass}
+                          \PY{k}{else}\PY{p}{:}
+                              \PY{k}{if} \PY{p}{(}\PY{n}{i} \PY{o}{+} \PY{n}{j} \PY{o}{+} \PY{n}{k}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:} \PY{c+c1}{\PYZsh{}adds all the potentials from sodium atoms}
+                                  \PY{n+nb}{sum} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{o}{/} \PY{p}{(}\PY{n}{sqrt}\PY{p}{(}\PY{n}{i}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{j}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{k}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+                              \PY{k}{elif} \PY{p}{(}\PY{n}{i} \PY{o}{+} \PY{n}{j} \PY{o}{+} \PY{n}{k}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:} \PY{c+c1}{\PYZsh{}adds all the potentials from chlorine atoms}
+                                  \PY{n+nb}{sum} \PY{o}{+}\PY{o}{=} \PY{o}{+}\PY{l+m+mi}{1} \PY{o}{/} \PY{p}{(}\PY{n}{sqrt}\PY{p}{(}\PY{n}{i}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{j}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{k}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+                          
+              \PY{k}{return} \PY{n+nb}{sum}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}240}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+          
+          Ls = [10, 100] \PYZsh{}values of L to calculate the Madelung constant for
+          
+          [print(\PYZdq{}The Madelung constant for L =\PYZob{}:3.0f\PYZcb{} is \PYZob{}:1.3f\PYZcb{}. \PYZbs{}n\PYZdq{}.format(x, Madelung(x))) for x in Ls]
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The Madelung constant for L = 10 is 1.748. 
+
+The Madelung constant for L =100 is 1.748. 
+
+CPU times: user 13.1 s, sys: 181 ms, total: 13.2 s
+Wall time: 15.3 s
+
+    \end{Verbatim}
+
+    \subsection{CP 3.6 Deterministic chaos and the Feigenbaum
+plot}\label{cp-3.6-deterministic-chaos-and-the-feigenbaum-plot}
+
+For certain values of \(r\) in the logistic equation
+
+\[x' = rx(1-x),\]
+
+the iterative map of the results will appear to be random. This is
+deterministic chaos.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}241}]:} \PY{c+c1}{\PYZsh{}the logistic map function}
+          
+          \PY{k}{def} \PY{n+nf}{logistic}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{r} \PY{o}{*} \PY{n}{x} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}242}]:} \PY{c+c1}{\PYZsh{}x = np.linspace(0, 1, 100)}
+          \PY{n}{fig}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{n}{pyplot}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{axis}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{logistic}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ko}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}242}]:} [<matplotlib.lines.Line2D at 0x11c23f438>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}243}]:} \PY{c+c1}{\PYZsh{}for a single value of r, starts with x and iterates a certain number of times}
+          \PY{k}{def} \PY{n+nf}{iterate}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}applies logistic map with N iterations to starting value of xi for increasing r\PYZsq{}\PYZsq{}\PYZsq{}}
+              
+              \PY{n}{fig}\PY{p}{,} \PY{n}{figplot} \PY{o}{=} \PY{n}{pyplot}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+              \PY{n}{figplot}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Feigenbaum Plot}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              
+              \PY{n}{xi} \PY{o}{=} \PY{l+m+mf}{0.5} \PY{c+c1}{\PYZsh{}starting value of x    }
+              
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{step} \PY{o}{=} \PY{n}{logistic}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{n}{xi}\PY{p}{)} \PY{c+c1}{\PYZsh{}utilizes logistic map function to find output}
+                  \PY{k}{if} \PY{n}{i} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1000} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{0}\PY{p}{:}
+                      \PY{n}{figplot}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{n}{step}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                      
+                  \PY{n}{xi} \PY{o}{=} \PY{n}{step} \PY{c+c1}{\PYZsh{}with this, the output of logistic will become the next input}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}244}]:} \PY{n}{r} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{400}\PY{p}{)} \PY{c+c1}{\PYZsh{}array of possible r valus}
+          \PY{n}{iterate}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{)} \PY{c+c1}{\PYZsh{}calls function}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\item
+  For a given r on the Feigenbaum Plot, you get a fixed point if there
+  is only a single x value corresponding to it. Likewise you can read
+  off a limit cycle if there are multiple (but countable) x values to
+  read off after branches. Chaos corresponds to an infinite amount of
+  possible x values, and can be seen as the darker, almost fully-shaded
+  regions.
+\item
+  The edge of chaos appears to be at r = 3.5. The logistic map
+  transitions from a fixed point to limit cycles at r = 3.0 and splits
+  into double the number of branches a few times before r = 3.5. After
+  this, you start to see full shading along a vertical line passing
+  through a given r value.
+\end{enumerate}
+
+    \subsection{CP 3.7 The Mandelbrot set}\label{cp-3.7-the-mandelbrot-set}
+
+Like the logistic map, the Mandelbrot set is recursively applied. If
+after some large number of iterations, \(|z'| < 2\) for every one of the
+iterations, then that point is in the set.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}245}]:} \PY{k}{def} \PY{n+nf}{mandelbrot}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{c}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{}defines the mandelbrot function}
+              \PY{k}{return} \PY{n+nb}{pow}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{+} \PY{n}{c}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}246}]:} \PY{k}{def} \PY{n+nf}{plot\PYZus{}mandelbrot}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{threshold}\PY{p}{,} \PY{n}{grid}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}This function will iterate the mandelbrot function \PYZlt{}N\PYZgt{} times,}
+          \PY{l+s+sd}{       compare the magnitude of the resulting complex number to \PYZlt{}threshold\PYZgt{},}
+          \PY{l+s+sd}{       then plot values under the threshold on a specified size \PYZlt{}grid\PYZgt{}.\PYZsq{}\PYZsq{}\PYZsq{}}
+          
+              \PY{c+c1}{\PYZsh{}fig, ax = pyplot.subplots(1, 1, figsize = (10, 10))}
+              \PY{c+c1}{\PYZsh{}ax.imshow(\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{})}
+              \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ogrid}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{n}{grid}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{n}{grid}\PY{p}{]} \PY{c+c1}{\PYZsh{}creates the grid}
+          
+              \PY{n}{c} \PY{o}{=} \PY{n}{x} \PY{o}{+} \PY{n}{y}\PY{o}{*}\PY{l+m+mi}{1}\PY{n}{j} \PY{c+c1}{\PYZsh{}defines c as a complex number based on location on grid}
+              \PY{n}{z} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{}starting value of z}
+              
+              \PY{c+c1}{\PYZsh{}iterates Mandelbrot function set number of times}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{z} \PY{o}{=} \PY{n}{mandelbrot}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{c}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}[z = mandelbrot(z, c) for i in range(N)] }
+              
+              \PY{c+c1}{\PYZsh{}the values that are in the Mandelbrot set}
+              \PY{n}{inset} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{z}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{threshold}
+              
+              \PY{n}{pyplot}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{inset}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{extent} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{aspect} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{c+c1}{\PYZsh{} ,cmap = \PYZsq{}jet\PYZsq{})}
+              \PY{c+c1}{\PYZsh{}pyplot.gray}
+              \PY{c+c1}{\PYZsh{}ax = pyplot.figure(figsize = (10,10))}
+              
+              \PY{n}{color} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ogrid}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{n}{grid}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{n}{grid}\PY{p}{]} \PY{c+c1}{\PYZsh{}initializing array for colors}
+              
+              \PY{n}{pyplot}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}247}]:} \PY{n}{plot\PYZus{}mandelbrot}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4000}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Varun/anaconda/lib/python3.6/site-packages/ipykernel\_launcher.py:2: RuntimeWarning: overflow encountered in square
+  
+/Users/Varun/anaconda/lib/python3.6/site-packages/ipykernel\_launcher.py:2: RuntimeWarning: invalid value encountered in square
+  
+/Users/Varun/anaconda/lib/python3.6/site-packages/ipykernel\_launcher.py:19: RuntimeWarning: invalid value encountered in less
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

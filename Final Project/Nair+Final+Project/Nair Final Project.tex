@@ -1,0 +1,676 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    \usepackage{mathtools}
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Physics 566: Computational Physics Final Project\\ \vspace{5mm}
+    {\Large Modeling Channel Flow with the Navier-Stokes Equations}\\ \vspace{10mm}
+    {\large Varun Nair}}     
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{precision} \PYZpc{}g
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{o}{\PYZpc{}}\PY{k}{config} InlineBackend.figure\PYZus{}format = \PYZsq{}retina\PYZsq{}
+        
+        \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{sqrt}\PY{p}{,} \PY{n}{pi}\PY{p}{,} \PY{n}{sin}\PY{p}{,} \PY{n}{cos}\PY{p}{,} \PY{n}{floor}\PY{p}{,} \PY{n}{exp}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k}{import} \PY{n}{linalg} \PY{k}{as} \PY{n}{LA}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{constants} \PY{k}{as} \PY{n}{con}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{k+kn}{from} \PY{n+nn}{channel\PYZus{}flow} \PY{k}{import} \PY{n}{solver}\PY{p}{,} \PY{n}{solved\PYZus{}u}
+\end{Verbatim}
+
+    \section{Theory}\label{theory}
+
+\subsection{Introduction}\label{introduction}
+
+The Navier-Stokes equations (NSE) can only be solved analytically for a
+few systems. One of these is for steady-state, fully developed laminar
+flow in a single direction between two plates. Laminar flow occurs when
+fluids move in parallel layers, so that movement in one layer doesn't
+disturb movement in another layer. The equation of motion for this
+system can be written as
+
+\begin{equation}
+\frac{\partial \mathbf{u}}{\partial t} + \bigr(\mathbf{u} \cdot \nabla\bigr)\mathbf{u} = \nu\Delta\mathbf{u} - \frac 1\rho\nabla P,
+\end{equation}
+
+where \(\mathbf{u}\) is the fluid velocity vector,
+\(\nu = \frac{\textrm{viscosity}}{\textrm{density}}\) is the kinematic
+viscosity, and \(P \equiv p + \Phi.\) The fluid is propelled through the
+channel by a force \(F = -\nabla\Phi.\) This can be rewritten in terms
+of fluid density (\(\rho\)) and shear viscosity (\(\eta\)), giving the
+partial differential equation
+
+\begin{equation}
+\rho\frac{\partial \mathbf{u}}{\partial t} + \rho\bigr(\mathbf{u} \cdot \nabla\bigr)\mathbf{u} = - \nabla p + \eta\Delta\mathbf{u},
+\end{equation}
+
+where \(\mathbf{u}\) is again the velocity vector and \(P = P(x,t)\) is
+the pressure as a function of position and time. For incompressible
+fluid flow, I can get a Poisson equation for pressure by setting the
+divergence of the momentum equation zero (this ends up taking the
+divergence of velocity to be zero because mass is constant for
+incompressible fluids) and assuming the pressure must be continuous over
+the region.
+
+\begin{equation}
+\nabla \cdot \mathbf{u} = 0
+\end{equation}
+
+\begin{equation}
+\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} = 0
+\end{equation}
+
+These conditions allow us to write three equations that govern the fluid
+flow through the channel. From now on, I use \(u\) and \(v\) to
+designate the velocities in the \(x\) and \(y\) directions,
+respectively. \(\rho\) and \(\nu\) are still the fluid density and
+viscosity, respectively.
+
+\begin{equation*}
+\frac{\partial u}{\partial t} + u \frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} = -\frac 1\rho\frac{\partial p}{\partial x} + \nu\biggr(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\biggr)
+\end{equation*}
+
+\begin{equation*}
+\frac{\partial v}{\partial t} + u \frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y} = -\frac 1\rho\frac{\partial p}{\partial y} + \nu\biggr(\frac{\partial^2 v}{\partial x^2} + \frac{\partial^2 v}{\partial y^2}\biggr)
+\end{equation*}
+
+\begin{equation*}
+-\frac 1\rho \biggr(\frac{\partial^2 p}{\partial x^2} + \frac{\partial^2 p}{\partial y^2}\biggr) = \biggr(\frac{\partial u}{\partial x}\biggr)^2 + 2\frac{\partial u}{\partial y}\frac{\partial v}{\partial x} + \biggr(\frac{\partial v}{\partial y}\biggr)^2
+\end{equation*}
+
+I now have a system of 2nd order, nonlinear partial differential
+equations that fully describe a fluid's behavior in a channel. However,
+these equations are only analytically solvable for a closed form
+solution under the following conditions: - laminar flow - steady flow -
+incompressible fluid - 2-D geometry - between two smooth surfaces of
+constant width.
+
+\subsection{More Complicated Flows}\label{more-complicated-flows}
+
+I'll use computational physics to numerically solve these equations when
+assumptions are relaxed. First I will relax the steady flow assumption
+for fluid velocity in the \(x\) direction by writing pressure in terms
+of steady and unsteady components. I write the total pressure
+
+\[p = p_0 + p_1\]
+
+as the sum of steady (\(p_0\)) and unsteady (\(p_1\)) pressures.
+Previously, \(p_1 = 0\), but if it varied with time, it would alter the
+flow.
+
+\begin{equation}
+\frac{\partial u}{\partial t} + u \frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} = -\frac 1\rho\biggr(\frac{\partial p_0}{\partial x} + \frac{\partial p_1}{\partial x}\biggr) + \nu\biggr(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\biggr)
+\end{equation}
+
+\begin{equation}
+\frac{\partial v}{\partial t} + u \frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y} = -\frac 1\rho\frac{\partial p}{\partial y} + \nu\biggr(\frac{\partial^2 v}{\partial x^2} + \frac{\partial^2 v}{\partial y^2}\biggr)
+\end{equation}
+
+\begin{equation}
+-\frac 1\rho \biggr(\frac{\partial^2 p}{\partial x^2} + \frac{\partial^2 p}{\partial y^2}\biggr) = \biggr(\frac{\partial u}{\partial x}\biggr)^2 + 2\frac{\partial u}{\partial y}\frac{\partial v}{\partial x} + \biggr(\frac{\partial v}{\partial y}\biggr)^2
+\end{equation}
+
+\subsection{Initial/Boundary
+Conditions}\label{initialboundary-conditions}
+
+The initial conditions I use for the different cases remain the same.
+The initial velocity of the fluid at all points in the channel (for both
+\(x\) and \(y\) directions is zero). The fluid is also at equal pressure
+throughout the region. \[ u(x,y,0) = v(x,y,0) = 0\] \[p(x,y,0) = 5\]
+
+The boundary conditions for the most basic case are that fluid velocity
+along the upper and lower boundary is zero due to the no slip condition.
+Further the first derivative of pressure is zero.
+
+\begin{subequations}
+\begin{align}
+u(x,0,t) = u(x,\tfrac L2,t) = v(x,0,t) = v(x,\tfrac L2,t) = 0\\
+\frac{\partial p}{\partial y} \biggr\vert_{y=0} = \frac{\partial p}{\partial y} \biggr\vert_{y=\frac{L}{2}} = 0
+\end{align}
+\end{subequations}
+
+\subsection{Modelling the Flow}\label{modelling-the-flow}
+
+Given this, we can solve for the velocity of the fluid throughout the
+region. I'll write out the expression for \(v_x\) of the fluid on the
+interior of the region explicitly as
+
+\begin{align}
+        \phantom{u(x,y)}
+        &\begin{aligned}
+          \mathllap{u(x,y)} &\leftarrow u(x,y) - \frac{u(x,y)\text{d}t}{a}\biggr[u(x,y)- u(x-a,y)\biggr]\\
+          &\quad - \frac{v(x,y)\text{d}t}{a}\biggr[u(x,y) - u(x,y-a)\biggr]- \frac{\text{d}t}{2\rho a}\biggr[p(x+a,y) - p(x-a,y)\biggr]\\
+            &\quad + \nu\biggr[\frac{\text{d}t}{a^2}\biggr(\bigr(u(x+a,y) - 2u(x,y) + u(x-a,y)\bigr) + \bigr(u(x,y+a) - 2u(x,y) + u(x,y-a)\bigr)\biggr)\biggr]\\
+            &\quad + P\text{d}t\\
+        \end{aligned}
+\end{align}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{tend} \PY{o}{=} \PY{l+m+mf}{0.5}
+        \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{100}
+        \PY{n}{L} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{res} \PY{o}{=} \PY{l+m+mi}{100} \PY{c+c1}{\PYZsh{}image resolution}
+        
+        \PY{c+c1}{\PYZsh{}initiates quiver plot}
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{L}\PY{p}{,} \PY{n}{N}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{L}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{N}\PY{p}{)}
+        \PY{n}{X}\PY{p}{,} \PY{n}{Y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        
+        \PY{n}{u1}\PY{p}{,}\PY{n}{v1}\PY{p}{,}\PY{n}{p1} \PY{o}{=} \PY{n}{solver}\PY{p}{(}\PY{n}{tend}\PY{p}{,}\PY{n}{N}\PY{p}{,}\PY{n}{L}\PY{p}{)}\PY{c+c1}{\PYZsh{},obstacle=\PYZsq{}ball\PYZsq{})}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{fig1}\PY{p}{,} \PY{n}{ax1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                                 \PY{n}{dpi}\PY{o}{=}\PY{n}{res}\PY{p}{)}
+        
+        \PY{n}{a} \PY{o}{=} \PY{l+m+mi}{2} \PY{c+c1}{\PYZsh{}frequency of arrows}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{]}\PY{p}{,} \PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{]}\PY{p}{,}
+                   \PY{n}{u1}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{]}\PY{p}{,} \PY{n}{v1}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fluid Velocity (\PYZdl{}v\PYZus{}x (m/s)\PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{ (m)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{ (m)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}plt.savefig(\PYZdq{}\PYZob{}:3.0f\PYZcb{}\PYZus{}basic\PYZus{}quiver.png\PYZdq{}.format(N))}
+        
+        
+        \PY{n}{fig2}\PY{p}{,} \PY{n}{ax2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                                 \PY{n}{dpi}\PY{o}{=}\PY{n}{res}\PY{p}{)}
+        
+        \PY{n}{ax2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{u1}\PY{p}{,}\PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fluid Velocity (\PYZdl{}v\PYZus{}x (m/s)\PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{ (m)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{ (m)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}plt.savefig(\PYZdq{}\PYZob{}:3.0f\PYZcb{}\PYZus{}basic\PYZus{}velocity.png\PYZdq{}.format(N))}
+        
+        
+        \PY{n}{fig3}\PY{p}{,} \PY{n}{ax3} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                                 \PY{n}{dpi}\PY{o}{=}\PY{n}{res}\PY{p}{)}
+        
+        \PY{n}{ax3}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{p1}\PY{p}{,}\PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pressure (\PYZdl{}Pa\PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{ (m)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{ (m)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}plt.savefig(\PYZdq{}\PYZob{}:3.0f\PYZcb{}\PYZus{}basic\PYZus{}pressure.png\PYZdq{}.format(N))}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} <matplotlib.text.Text at 0x11be6d668>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{100_basic_quiver.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Testing Results}\label{testing-results}
+
+For the most basic case of channel flow, I can compare my results to the
+results predicted by the analytically solved equation for the fluid's
+velocity in the \(x\) direction. The equation for velcoity before
+applying the relevant boundary conditions is
+
+\[u(y) = -\frac{10}{\nu}\biggr(\frac{y^2}{2} + C_1y + C_2\biggr).\]
+
+When we apply the no slip conditions at \(y=0,\tfrac L2,\) which force
+fluid velocity to be zero, we constrain the equation such that
+\(C_2 = 0\) and \(C_1 = -\frac L4.\) This gives us the equation for
+velocity as a function of height in a channel as
+
+\begin{equation}
+u(y) = -\frac{10}{\nu}\biggr(\frac{y^2}{2} -\frac L4 y\biggr).
+\end{equation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}compare to analytical solution}
+        
+        \PY{c+c1}{\PYZsh{}array with analytically determined velocity}
+        \PY{n}{yrange} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{L}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{perfect\PYZus{}u} \PY{o}{=} \PY{n}{solved\PYZus{}u}\PY{p}{(}\PY{n}{yrange}\PY{p}{)}
+            
+        \PY{n}{fig4}\PY{p}{,} \PY{n}{ax4} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                                 \PY{n}{dpi}\PY{o}{=}\PY{n}{res}\PY{p}{)}
+        
+        \PY{n}{ax4}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{u1}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{L}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Computational}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax4}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{perfect\PYZus{}u}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Analytic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax4}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fluid Velocity for \PYZdl{}t\PYZus{}f=}\PY{l+s+si}{\PYZob{}:1.1f\PYZcb{}}\PY{l+s+s2}{\PYZdl{}s}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+                      \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{tend}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ax4}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{ (m)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax4}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}v\PYZus{}x}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{ (m/s)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax4}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}plt.savefig(\PYZdq{}100\PYZus{}basic\PYZus{}compare.png\PYZdq{})}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} <matplotlib.legend.Legend at 0x11d3d0a20>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Ball in Channel}\label{ball-in-channel}
+
+I'll now analyze the impact of placing a ball into a channel with this
+flow. To ease the computational expense, I will model it as a circle in
+a 2-d channel, which will give us a cross-section of the channel's flow.
+The equations modelling the flow remain the same. The difference is that
+we now add additional boundary conditions around the circle. These
+boundary conditions are the same as for the upper/lower channel
+boudnaries, i.e., the no slip condition and the unchanging pressure
+condition. I developed the code so that the optional argument
+"obstacle='ball'" triggers the additional boundary conditions to be
+taken into account when solving the system.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{tend} \PY{o}{=} \PY{l+m+mf}{0.5}
+        \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{75}
+        \PY{n}{L} \PY{o}{=} \PY{l+m+mi}{1}
+        
+        \PY{c+c1}{\PYZsh{}initiates quiver plot}
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{L}\PY{p}{,} \PY{n}{N}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{L}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{N}\PY{p}{)}
+        \PY{n}{X}\PY{p}{,} \PY{n}{Y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        
+        \PY{n}{u2}\PY{p}{,}\PY{n}{v2}\PY{p}{,}\PY{n}{p2} \PY{o}{=} \PY{n}{solver}\PY{p}{(}\PY{n}{tend}\PY{p}{,}\PY{n}{N}\PY{p}{,}\PY{n}{L}\PY{p}{,}\PY{n}{obstacle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ball}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{fig5}\PY{p}{,} \PY{n}{ax5} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                                 \PY{n}{dpi}\PY{o}{=}\PY{n}{res}\PY{p}{)}
+        
+        \PY{n}{a} \PY{o}{=} \PY{l+m+mi}{2} \PY{c+c1}{\PYZsh{}frequency of arrows}
+        \PY{n}{ax5}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{]}\PY{p}{,} \PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{]}\PY{p}{,}
+                   \PY{n}{u2}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{]}\PY{p}{,} \PY{n}{v2}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ax5}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fluid Velocity (\PYZdl{}v\PYZus{}x (m/s)\PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax5}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{ (m)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax5}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{ (m)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}plt.savefig(\PYZdq{}\PYZob{}:2.0f\PYZcb{}\PYZus{}ball\PYZus{}quiver.png\PYZdq{}.format(N))}
+        
+        
+        \PY{n}{fig6}\PY{p}{,} \PY{n}{ax6} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                                 \PY{n}{dpi}\PY{o}{=}\PY{n}{res}\PY{p}{)}
+        
+        \PY{n}{ax6}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{u2}\PY{p}{,}\PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax6}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fluid Velocity (\PYZdl{}v\PYZus{}x (m/s)\PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax6}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{ (m)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax6}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{ (m)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}plt.savefig(\PYZdq{}\PYZob{}:2.0f\PYZcb{}\PYZus{}ball\PYZus{}velocity.png\PYZdq{}.format(N))}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} <matplotlib.text.Text at 0x11c6a9d30>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Flow Around a Wing}\label{flow-around-a-wing}
+
+We can also create a wing-shaped object in the channel, modelling its
+effect on the flow of fuid. I've done this below, with the boundary
+conditions adjusted to the new object's shape.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{tend} \PY{o}{=} \PY{l+m+mf}{0.5}
+        \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{75}
+        \PY{n}{L} \PY{o}{=} \PY{l+m+mi}{1}
+        
+        \PY{c+c1}{\PYZsh{}initiates quiver plot}
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{L}\PY{p}{,} \PY{n}{N}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{L}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{N}\PY{p}{)}
+        \PY{n}{X}\PY{p}{,} \PY{n}{Y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        
+        \PY{n}{u3}\PY{p}{,}\PY{n}{v3}\PY{p}{,}\PY{n}{p3} \PY{o}{=} \PY{n}{solver}\PY{p}{(}\PY{n}{tend}\PY{p}{,}\PY{n}{N}\PY{p}{,}\PY{n}{L}\PY{p}{,}\PY{n}{obstacle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{fig7}\PY{p}{,} \PY{n}{ax7} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                                 \PY{n}{dpi}\PY{o}{=}\PY{n}{res}\PY{p}{)}
+        
+        \PY{n}{a} \PY{o}{=} \PY{l+m+mi}{2} \PY{c+c1}{\PYZsh{}frequency of arrows}
+        \PY{n}{ax7}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{]}\PY{p}{,} \PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{]}\PY{p}{,}
+                   \PY{n}{u3}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{]}\PY{p}{,} \PY{n}{v3}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{n}{a}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ax7}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fluid Velocity (\PYZdl{}v\PYZus{}x (m/s)\PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax7}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{ (m)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax7}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{ (m)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}plt.savefig(\PYZdq{}\PYZob{}:2.0f\PYZcb{}\PYZus{}wing\PYZus{}quiver.png\PYZdq{}.format(N))}
+        
+        
+        \PY{n}{fig8}\PY{p}{,} \PY{n}{ax8} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                                 \PY{n}{dpi}\PY{o}{=}\PY{n}{res}\PY{p}{)}
+        
+        \PY{n}{ax8}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{u3}\PY{p}{,}\PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax8}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fluid Velocity (\PYZdl{}v\PYZus{}x (m/s)\PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax8}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{ (m)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax8}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{ (m)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}plt.savefig(\PYZdq{}\PYZob{}:2.0f\PYZcb{}\PYZus{}wing\PYZus{}velocity.png\PYZdq{}.format(N))}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} <matplotlib.text.Text at 0x11c131198>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

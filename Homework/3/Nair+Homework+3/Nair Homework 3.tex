@@ -1,0 +1,1565 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Homework 3 \\ \vspace{10mm}
+    {\large Varun Nair}}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{precision} \PYZpc{}g
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{o}{\PYZpc{}}\PY{k}{config} InlineBackend.figure\PYZus{}format = \PYZsq{}retina\PYZsq{}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{sqrt}\PY{p}{,} \PY{n}{pi}\PY{p}{,} \PY{n}{sin}\PY{p}{,} \PY{n}{cos}\PY{p}{,} \PY{n}{exp}\PY{p}{,} \PY{n}{inf}\PY{p}{,} \PY{n}{factorial}\PY{p}{,} \PY{n}{tan}
+        \PY{k+kn}{from} \PY{n+nn}{cmath} \PY{k}{import} \PY{n}{exp} \PY{k}{as} \PY{n}{cexp}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{constants} \PY{k}{as} \PY{n}{C}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{integrate}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{c+c1}{\PYZsh{}from IPython.display import set\PYZus{}matplotlib\PYZus{}formats}
+        \PY{c+c1}{\PYZsh{}set\PYZus{}matplotlib\PYZus{}formats(\PYZsq{}png\PYZsq{}, \PYZsq{}pdf\PYZsq{})}
+\end{Verbatim}
+
+    \section{CP 5.3 Gaussian error
+function}\label{cp-5.3-gaussian-error-function}
+
+The function \(E(x) = \int_0^x \ e^{-t^2} \ dt\) must be solved
+numerically. In this problem, I'll employ the trapezoidal rule
+
+\[I(a,b) = h \ \left( \frac{1}{2}(f(a) + f(b)) + \sum_k^{N-1} f(a+ kh) \right)\]
+
+to find the values for \(E(x)\) given \(x \in [0,3]\) with increments of
+0.1.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}defining integrand function}
+        \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{t}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}defines a trapezoidal rule based on the one listed above}
+        \PY{k}{def} \PY{n+nf}{E}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}x is the upper limit for the integral}
+        \PY{l+s+sd}{        N is the number of slices used for integration\PYZsq{}\PYZsq{}\PYZsq{}}
+            
+            \PY{n}{h} \PY{o}{=} \PY{n}{x} \PY{o}{/} \PY{n}{N}
+            
+            \PY{n}{s1} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{s2} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+            \PY{n}{s3} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                \PY{n}{s3} \PY{o}{+}\PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{k}\PY{o}{*}\PY{n}{h}\PY{p}{)}
+            
+            \PY{k}{return} \PY{p}{(}\PY{p}{(}\PY{l+m+mf}{0.5} \PY{o}{*} \PY{p}{(}\PY{n}{s1} \PY{o}{+} \PY{n}{s2}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{s3}\PY{p}{)} \PY{o}{*} \PY{n}{h}
+            
+        \PY{c+c1}{\PYZsh{}calculating E(x) for 0\PYZhy{}3 by 0.1}
+        \PY{n}{sols} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{float}\PY{p}{)}
+        \PY{n}{sols}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{n}{sols}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{n}{sols}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{E}\PY{p}{(}\PY{n}{sols}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100000}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}created a new cell for plotting, so}
+        \PY{c+c1}{\PYZsh{}for loop doesn\PYZsq{}t run every time}
+        
+        \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{sols}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{sols}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plotting the Gaussian Error Function}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{E(x)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{CP 5.4 The diffraction limit of a
+telescope}\label{cp-5.4-the-diffraction-limit-of-a-telescope}
+
+The circular diffraction pattern for a star in a telescope is given by
+
+\[I(r) = \biggl( {J_1(kr)\over kr} \biggr)^2.\]
+
+This value makes use of Bessel functions \(J_m(x).\) The Bessel
+functions are given by
+
+\[J_m(x) = {1\over\pi} \int_0^\pi \cos(m\theta - x\sin\theta) \ d\theta.\]
+
+We can evaluate this integral numerically and thus find the value of any
+given Bessel function via Simpson's rule. The simplified form of
+Simpson's rule is
+
+\[ I = \frac{1}{3} \ h \ \left( f(a) + f(b) + 4 \sum_{k = \textrm{odd}} f(a+kh) + 2 \sum_{k = \textrm{even}} f(a+kh)  \right).\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{J}\PY{p}{(}\PY{n}{m}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Evaluates the Bessel function for order m and x}
+        \PY{l+s+sd}{        with N = 1000 slices for Simpsons Rule\PYZsq{}\PYZsq{}\PYZsq{}}
+        
+            \PY{c+c1}{\PYZsh{}defines integrand}
+            \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{theta}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n}{cos}\PY{p}{(}\PY{n}{m} \PY{o}{*} \PY{n}{theta} \PY{o}{\PYZhy{}} \PY{n}{x} \PY{o}{*} \PY{n}{sin}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)}
+            
+            \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{1000}
+        
+            \PY{c+c1}{\PYZsh{}always this b/c bounds and slices are set}
+            \PY{n}{h} \PY{o}{=} \PY{n}{pi} \PY{o}{/} \PY{n}{N}
+            
+            \PY{n}{s1} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{s2} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{pi}\PY{p}{)}
+            \PY{n}{s3} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{s4} \PY{o}{=} \PY{l+m+mi}{0}
+            
+            \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{N}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                \PY{n}{s3} \PY{o}{+}\PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{k}\PY{o}{*}\PY{n}{h}\PY{p}{)}
+            \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{N}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                \PY{n}{s4} \PY{o}{+}\PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{k}\PY{o}{*}\PY{n}{h}\PY{p}{)}
+            
+            \PY{n}{s} \PY{o}{=} \PY{n}{s1} \PY{o}{+} \PY{n}{s2} \PY{o}{+} \PY{l+m+mi}{4}\PY{o}{*}\PY{n}{s3} \PY{o}{+} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{s4}
+            \PY{n}{I} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)} \PY{o}{*} \PY{n}{h} \PY{o}{*} \PY{n}{s}
+            
+            \PY{k}{return} \PY{n}{I} \PY{o}{/} \PY{n}{pi}
+        
+        
+        \PY{n}{small} \PY{o}{=} \PY{l+m+mf}{0.000001}
+        \PY{n}{J}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{small}\PY{p}{)} \PY{o}{/} \PY{n}{small}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} 0.5
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}initializes plot}
+        \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{j0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{l+m+mi}{200}\PY{p}{)}
+        \PY{n}{j1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{l+m+mi}{200}\PY{p}{)}
+        \PY{n}{j2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{l+m+mi}{200}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{200}\PY{p}{)}\PY{p}{:}
+            \PY{n}{j0}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{J}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+            \PY{n}{j1}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{J}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+            \PY{n}{j2}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{J}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+            
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{j0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{j1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{j2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plotting Bessel Functions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{J(m,x)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+        def diffraction():
+            \PYZdq{}\PYZdq{}\PYZdq{}plots the diffraction pattern for a point
+                source of light through small circular
+                aperture\PYZdq{}\PYZdq{}\PYZdq{}
+            
+            l = 500e\PYZhy{}9 \PYZsh{}wavelength (m)
+        
+            m = 1 \PYZsh{}order of the bessel function used for intensity
+            k = 2 * pi / l
+            
+            side = 2e\PYZhy{}6 \PYZsh{}side length of the square in m
+            points = 500 \PYZsh{}number of grid points along each side
+            spacing = side / points \PYZsh{}spacing of points in nm
+            
+            I = np.empty([points,points],float)
+            \PYZsh{}calculate the values in the array
+            for i in range(points):
+                y = spacing * i
+                for j in range(points):
+                    x = spacing * j
+                    r = sqrt((x\PYZhy{}side/2)**2 + (y\PYZhy{}side/2)**2)
+                    if k* r != 0:
+                        I[i,j] = (J(m, k*r) / (k*r))**2
+                    
+            fig, ax = plt.subplots(1, 1, figsize = (10, 10))
+            
+            \PYZsh{}increases readability of plot
+            ax.set\PYZus{}title(\PYZdq{}Diffraction Pattern of a Point Source\PYZdq{})
+            ax.set\PYZus{}xlabel(\PYZdq{}x (\PYZdl{}\PYZbs{}mu m\PYZdl{})\PYZdq{})
+            ax.set\PYZus{}ylabel(\PYZdq{}y (\PYZdl{}\PYZbs{}mu m\PYZdl{})\PYZdq{})
+            ax.set\PYZus{}xticks([\PYZhy{}1, \PYZhy{}0.5, 0, 0.5, 1])
+            ax.set\PYZus{}yticks([\PYZhy{}1, \PYZhy{}0.5, 0, 0.5, 1])
+            
+            ax.imshow(I,origin=\PYZdq{}lower\PYZdq{},extent=\PYZbs{}
+                      [\PYZhy{}1,1,\PYZhy{}1,1],\PYZbs{}
+                      cmap=\PYZdq{}hot\PYZdq{}, vmax=0.01)
+        
+        diffraction()
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CPU times: user 1min 29s, sys: 636 ms, total: 1min 30s
+Wall time: 1min 32s
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{CP 5.7 Romberg integration}\label{cp-5.7-romberg-integration}
+
+This problem will evaluate the integral
+\[I = \int_0^1 \sin^2 \sqrt{100x} \ dx\]
+
+in two different ways. First, through adaptive trapezoidal integration
+and second, through Romberg integration. The basic trapezoidal
+integration method is given by
+
+\[I(a,b) = h \ \left( \frac{1}{2}(f(a) + f(b)) + \sum_k^{N-1} f(a+ kh) \right).\]
+
+The adaptive method is given by
+
+\[I_i = \tfrac12 I_{i-1} + h_i \sum_{k \text{ odd}} f(a+kh_i).\]
+
+Thus, because the adaptive method uses the result of the previou
+iteration, it takes marginally more computing power to do this. The
+error term for this can be written as
+
+\[\epsilon_i = \tfrac13 (I_i - I_{i-1}).\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{epsilon} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}6}
+         
+         \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{sin}\PY{p}{(}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{100}\PY{o}{*}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+         
+         def adaptive\PYZus{}trap():
+             \PYZsq{}\PYZsq{}\PYZsq{}performs adaptive trapezoidal integration,
+                 starting with N slices and stopping after
+                 set error has been reached\PYZsq{}\PYZsq{}\PYZsq{}
+             
+             a = 0
+             b = 1
+             N = 1
+             error = 1 \PYZsh{}initialization value to start while loop
+             
+             h = (b\PYZhy{}a) / N
+             I1 = h * 0.5 * (f(a) + f(b))
+                 
+             while error \PYZgt{} epsilon: \PYZsh{}condition to keep running integration
+                 h = (b\PYZhy{}a) / N
+                 I2 = 0.5 * I1
+                             
+                 for k in range(1,N,2):
+                     I2 += h * f(a + k*h)
+                     
+                 error = abs((I2 \PYZhy{} I1)/3)
+                     
+                 print(\PYZdq{}For N = \PYZob{}:4\PYZcb{}, I = \PYZob{}:4.6f\PYZcb{} and the error is \PYZob{}:4.3e\PYZcb{} \PYZbs{}n\PYZdq{}\PYZbs{}
+                           .format(N, I2, error))
+                 
+                 I1 = I2
+                 N *= 2
+             
+             return I2
+                                 
+         adaptive\PYZus{}trap()
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For N =    1, I = 0.073990 and the error is 2.466e-02 
+
+For N =    2, I = 0.288237 and the error is 7.142e-02 
+
+For N =    4, I = 0.493785 and the error is 6.852e-02 
+
+For N =    8, I = 0.393749 and the error is 3.335e-02 
+
+For N =   16, I = 0.425479 and the error is 1.058e-02 
+
+For N =   32, I = 0.446102 and the error is 6.874e-03 
+
+For N =   64, I = 0.452757 and the error is 2.218e-03 
+
+For N =  128, I = 0.454770 and the error is 6.712e-04 
+
+For N =  256, I = 0.455422 and the error is 2.173e-04 
+
+For N =  512, I = 0.455658 and the error is 7.848e-05 
+
+For N = 1024, I = 0.455753 and the error is 3.167e-05 
+
+For N = 2048, I = 0.455795 and the error is 1.394e-05 
+
+For N = 4096, I = 0.455814 and the error is 6.495e-06 
+
+For N = 8192, I = 0.455823 and the error is 3.129e-06 
+
+For N = 16384, I = 0.455828 and the error is 1.535e-06 
+
+For N = 32768, I = 0.455830 and the error is 7.601e-07 
+
+CPU times: user 18.3 ms, sys: 3.11 ms, total: 21.4 ms
+Wall time: 19.6 ms
+
+    \end{Verbatim}
+
+    So, on the 16th iteration of the adaptive trapezoidal integration, we
+reached the desired error set out by the problem.
+
+However, Romberg integration will likely give us this result faster. The
+idea behind Romberg integration is to cancel out higher and higher order
+error terms by using the values we've already calculated from
+trapezoidal integration.
+
+The value of the integral is given by
+
+\[I = R_{i, m+1} + O(h_i^{2m+2})\]
+
+with errors given by
+
+\[c_mh_i^{2m} = \frac{1}{4^m -1} (R_{i,m} - R_{i-1, m}) + O(h_i^{2m+2}).\]
+
+The actual terms in the 'series' can be calculated from the preceding
+terms, which is what makes this such an efficient method of integration.
+
+\[R_{i,m+1} = R_{i,m} + \frac{1}{4^m -1} (R_{i,m} - R_{i-1, m})\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{k}{def} \PY{n+nf}{simple\PYZus{}trap}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}defines a simple trapezoidal integration}
+         \PY{l+s+sd}{            for use in the Romberg integration\PYZsq{}\PYZsq{}\PYZsq{}}
+                 \PY{n}{a} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{1}
+                 
+                 \PY{n}{h} \PY{o}{=} \PY{p}{(}\PY{n}{b} \PY{o}{\PYZhy{}} \PY{n}{a}\PY{p}{)} \PY{o}{/} \PY{n}{N}
+                 
+                 \PY{n}{I} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{a}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{0.5}
+                 \PY{n}{I} \PY{o}{+}\PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{b}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{0.5}
+                 \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{I} \PY{o}{+}\PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{a} \PY{o}{+} \PY{n}{k}\PY{o}{*}\PY{n}{h}\PY{p}{)}
+                     
+                 \PY{n}{I} \PY{o}{*}\PY{o}{=} \PY{n}{h}
+                 \PY{k}{return} \PY{n}{I}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+         \PYZsh{}romberg integration
+         
+         def romberg(m):
+             \PYZsq{}\PYZsq{}\PYZsq{}Romberg integrates a function up to m rows\PYZsq{}\PYZsq{}\PYZsq{}
+             
+             a = 0
+             b = 1
+                 
+             R = np.zeros((m, m))
+             for i in range(0, m):
+                 R[i, 0] = simple\PYZus{}trap(2**i)
+                 \PYZsh{}R[i,0] = adaptive\PYZus{}trap()
+         
+                 for m in range(0, i):
+                     R[i, m+1] = R[i,m] + ((R[i,m] \PYZhy{} R[i\PYZhy{}1, m])/(4**(m+1) \PYZhy{} 1))
+         
+                     error = (R[i,m] \PYZhy{} R[i \PYZhy{} 1, m]) / (4**m \PYZhy{} 1)
+         
+                     if error \PYZlt{} epsilon:
+                         break
+         
+                 print(R[i, 0:i+1])
+                 
+                         
+         
+         romberg(7)
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 0.14797948]
+[ 0.32523191  0.38431605]
+[ 0.51228285  0.57463317  0.58732097]
+[ 0.40299745  0.36656898  0.          0.        ]
+[ 0.43010337  0.43913868  0.44397666  0.4510239   0.45279263]
+[ 0.44841467  0.45451843  0.45554375  0.45572735  0.4557458   0.45574868]
+[ 0.45391293  0.45574569  0.4558275   0.45583201  0.45583242  0.4558325   0.        ]
+CPU times: user 6.89 ms, sys: 2.49 ms, total: 9.38 ms
+Wall time: 7.89 ms
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Varun/anaconda/lib/python3.6/site-packages/ipykernel\_launcher.py:17: RuntimeWarning: divide by zero encountered in double\_scalars
+
+    \end{Verbatim}
+
+    As can be seen from the results of Romberg integration, a precise and
+accurate numerical value is reached for the integral in less time (about
+a quarter) than with the adaptive trapezoidal method. We see that the
+our desired error level is reached in the 7th row
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+         
+         \PYZsh{}testing romberg integration
+         integrate.romberg(f, 0, 1, show=1)
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Romberg integration of <function vectorize1.<locals>.vfunc at 0x1176069d8> from [0, 1]
+
+ Steps  StepSize   Results
+     1  1.000000  0.147979 
+     2  0.500000  0.325232  0.384316 
+     4  0.250000  0.512283  0.574633  0.587321 
+     8  0.125000  0.402997  0.366569  0.352698  0.348974 
+    16  0.062500  0.430103  0.439139  0.443977  0.445426  0.445804 
+    32  0.031250  0.448415  0.454518  0.455544  0.455727  0.455768  0.455777 
+    64  0.015625  0.453913  0.455746  0.455828  0.455832  0.455832  0.455832  0.455832 
+   128  0.007812  0.455349  0.455827  0.455832  0.455833  0.455833  0.455833  0.455833  0.455833 
+   256  0.003906  0.455711  0.455832  0.455833  0.455833  0.455833  0.455833  0.455833  0.455833  0.455833 
+
+The final result is 0.455832532309 after 257 function evaluations.
+CPU times: user 8.9 ms, sys: 4.52 ms, total: 13.4 ms
+Wall time: 11.9 ms
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 0.455833
+\end{Verbatim}
+            
+    \subsubsection{Gaussian Quadrature
+Problems}\label{gaussian-quadrature-problems}
+
+For the following questions, the method of Gaussian Quadrature will be
+used to estimate the value of integrals. Gaussian Quadrature attempts to
+pick points with varied spacing along a curve in the most efficient way,
+so as to best calculate the area under the curve. In practice this gives
+a sum that is very close to the actual value of an integral.
+
+\[\sum_i w_i\ f(x_i) \approx \int_a^b f(x)\ dx\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Gaussian Quadrature Functions as defined by Mark Newman}
+         
+         \PY{l+s+sd}{    used for the following problems in the homework.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    I edited the numpy functions, adding the prefix \PYZsq{}np.\PYZsq{}\PYZsq{}\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{} x,w = gaussxw(N) returns integration points x and integration}
+         \PY{c+c1}{\PYZsh{}           weights w such that sum\PYZus{}i w[i]*f(x[i]) is the Nth\PYZhy{}order}
+         \PY{c+c1}{\PYZsh{}           Gaussian approximation to the integral int\PYZus{}\PYZob{}\PYZhy{}1\PYZcb{}\PYZca{}1 f(x) dx}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{c+c1}{\PYZsh{} x,w = gaussxwab(N,a,b) returns integration points and weights}
+         \PY{c+c1}{\PYZsh{}           mapped to the interval [a,b], so that sum\PYZus{}i w[i]*f(x[i])}
+         \PY{c+c1}{\PYZsh{}           is the Nth\PYZhy{}order Gaussian approximation to the integral}
+         \PY{c+c1}{\PYZsh{}           int\PYZus{}a\PYZca{}b f(x) dx}
+         
+         \PY{k}{def} \PY{n+nf}{gaussxw}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+         
+             \PY{c+c1}{\PYZsh{} Initial approximation to roots of the Legendre polynomial}
+             \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{a}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{8}\PY{o}{*}\PY{n}{N}\PY{o}{*}\PY{n}{N}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{tan}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Find roots using Newton\PYZsq{}s method}
+             \PY{n}{epsilon} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}15}
+             \PY{n}{delta} \PY{o}{=} \PY{l+m+mf}{1.0}
+             \PY{k}{while} \PY{n}{delta}\PY{o}{\PYZgt{}}\PY{n}{epsilon}\PY{p}{:}
+                 \PY{n}{p0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n+nb}{float}\PY{p}{)}
+                 \PY{n}{p1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{p0}\PY{p}{,}\PY{n}{p1} \PY{o}{=} \PY{n}{p1}\PY{p}{,}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{n}{p1}\PY{o}{\PYZhy{}}\PY{n}{k}\PY{o}{*}\PY{n}{p0}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{dp} \PY{o}{=} \PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{p0}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{*}\PY{n}{p1}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{*}\PY{n}{x}\PY{p}{)}
+                 \PY{n}{dx} \PY{o}{=} \PY{n}{p1}\PY{o}{/}\PY{n}{dp}
+                 \PY{n}{x} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{dx}
+                 \PY{n}{delta} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{dx}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Calculate the weights}
+             \PY{n}{w} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{N}\PY{o}{*}\PY{n}{N}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{*}\PY{n}{x}\PY{p}{)}\PY{o}{*}\PY{n}{dp}\PY{o}{*}\PY{n}{dp}\PY{p}{)}
+         
+             \PY{k}{return} \PY{n}{x}\PY{p}{,}\PY{n}{w}
+         
+         \PY{k}{def} \PY{n+nf}{gaussxwab}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x}\PY{p}{,}\PY{n}{w} \PY{o}{=} \PY{n}{gaussxw}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+             \PY{k}{return} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{b}\PY{o}{\PYZhy{}}\PY{n}{a}\PY{p}{)}\PY{o}{*}\PY{n}{x}\PY{o}{+}\PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{b}\PY{o}{+}\PY{n}{a}\PY{p}{)}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{b}\PY{o}{\PYZhy{}}\PY{n}{a}\PY{p}{)}\PY{o}{*}\PY{n}{w}
+\end{Verbatim}
+
+    \section{CP 5.9 Heat apacity using Gaussian
+quadrature}\label{cp-5.9-heat-apacity-using-gaussian-quadrature}
+
+Debye gives the relationship between heat capacity of solids and
+temperature as
+
+\[C_V (T) = 9V\rho k_B \biggl( {T\over\theta_D} \biggr)^3 \int_0^{\theta_D/T}{x^4 \ e^x\over(\ e^x-1)^2}\ d x.\]
+
+Thus we can numerically evaluate this integral in order to find the heat
+capacity of a given solid at a given temperature. I'll look at the case
+specific to Aluminum.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}definining constants for this problem in SI units}
+         \PY{n}{V} \PY{o}{=} \PY{l+m+mf}{0.001} \PY{c+c1}{\PYZsh{}volume (m\PYZca{}3)}
+         \PY{n}{rho} \PY{o}{=} \PY{l+m+mf}{6.022e28} \PY{c+c1}{\PYZsh{}number density (m\PYZca{}\PYZhy{}3)}
+         \PY{n}{thetaD} \PY{o}{=} \PY{l+m+mf}{428.0} \PY{c+c1}{\PYZsh{}Debye temp (K)}
+         \PY{n}{kB} \PY{o}{=} \PY{n}{C}\PY{o}{.}\PY{n}{k} \PY{c+c1}{\PYZsh{}Boltzmann\PYZsq{}s constant (J/K)}
+         
+         \PY{c+c1}{\PYZsh{}defining function}
+         \PY{k}{def} \PY{n+nf}{g}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n}{num} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{*}\PY{n}{exp}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{n}{den} \PY{o}{=} \PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+             \PY{k}{return} \PY{n}{num} \PY{o}{/} \PY{n}{den}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{def} \PY{n+nf}{cv}\PY{p}{(}\PY{n}{T}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}This will calculate the heat capacity of a solid}
+         \PY{l+s+sd}{        for a given temperature (K)\PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{c+c1}{\PYZsh{}part of function outside of integral}
+             \PY{n}{out} \PY{o}{=} \PY{l+m+mi}{9} \PY{o}{*} \PY{n}{V} \PY{o}{*} \PY{n}{rho} \PY{o}{*} \PY{n}{kB} \PY{o}{*} \PY{p}{(}\PY{p}{(}\PY{n}{T}\PY{o}{/}\PY{n}{thetaD}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{)}
+             
+             \PY{n}{x}\PY{p}{,}\PY{n}{w} \PY{o}{=} \PY{n}{gaussxwab}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{thetaD}\PY{o}{/}\PY{n}{T}\PY{p}{)}
+             
+             \PY{n}{I} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{I} \PY{o}{+}\PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{g}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                 
+             \PY{k}{return} \PY{n}{out}\PY{o}{*}\PY{n}{I}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}plots heat capacity from 5 to 500 K}
+         
+         \PY{n}{T} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{,} \PY{l+m+mi}{5000}\PY{p}{)}
+         \PY{n}{CV} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{5000}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5000}\PY{p}{)}\PY{p}{:}
+             \PY{n}{CV}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{cv}\PY{p}{(}\PY{n}{T}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{T}\PY{p}{,} \PY{n}{CV}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plotting Heat Capacity vs Temperature}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temperature (K)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Heat Capacity (J/K)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{CP 5.10 Period of an anharmonic oscillator with Gaussian
+quadrature}\label{cp-5.10-period-of-an-anharmonic-oscillator-with-gaussian-quadrature}
+
+Anharmonic oscillators are any oscillators not of the form
+\(V(x) \propto x^2.\) So by treating the total energy as constant given
+mass \(m\) and position \(x\), we have
+
+\[E = \tfrac12 m \biggr(\frac{dx}{dt}\biggr)^2 + V(x)\]
+
+which is a nonlinear differential equation in the variables \(x\) and
+\(t\). We can then derive a relation for the period of the oscillator
+for a particle starting at rest a distance \(a\) from the center.
+
+In this scenario, the particle's total energy \(E = V(a)\), so we can
+rewrite the entire equation as
+
+\[V(a) = \tfrac12 m \biggr(\frac{dx}{dt}\biggr)^2 + V(x).\]
+
+We can use algebra to rearrange it to
+
+\[dt = \sqrt{\frac{m}{2}} \frac{dx}{\sqrt{V(a)-V(x)}}.\] This can be
+integrated on either side to find the time it takes the particle to
+travel any distance. For this, because we know it travels a quarter of a
+period in a distance \(a\) (the distance to the center of the
+potential), we'll use these as bounds for the integration.
+
+\[\int_0^{\tfrac14T}dt = \tfrac14T = \int_0^a \sqrt{\frac{m}{2}} \frac{dx}{\sqrt{V(a)-V(x)}}\]
+
+Finally, we are left with the expression for the period of the particle
+that we were looking for:
+
+\[T = \sqrt{8m} \int_0^a \frac{dx}{\sqrt{V(a)-V(x)}}.\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}definining constants for this problem in SI units}
+         \PY{n}{m} \PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{}mass (kg)}
+         
+         \PY{c+c1}{\PYZsh{}defining function}
+         \PY{k}{def} \PY{n+nf}{h}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{l+m+mi}{1} \PY{o}{/} \PY{p}{(}\PY{n}{sqrt}\PY{p}{(}\PY{n}{a}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4} \PY{o}{\PYZhy{}} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{def} \PY{n+nf}{period}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}This will calculate the period of an anharmonic}
+         \PY{l+s+sd}{        oscillator\PYZsq{}s period given the amplitude\PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{c+c1}{\PYZsh{}part of function outside of integral}
+             \PY{n}{p1} \PY{o}{=} \PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{8}\PY{o}{*}\PY{n}{m}\PY{p}{)}
+             
+             \PY{n}{x}\PY{p}{,}\PY{n}{w} \PY{o}{=} \PY{n}{gaussxwab}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{a}\PY{p}{)}
+             
+             \PY{n}{p2} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{p2} \PY{o}{+}\PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{h}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                 
+             \PY{k}{return} \PY{n}{p1}\PY{o}{*}\PY{n}{p2}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{}plots period as amplitude ranges from a=0 to a=2}
+         
+         \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{T} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+             \PY{n}{T}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{period}\PY{p}{(}\PY{n}{a}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plotting Period vs. Amplitude}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Amplitude (m)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Period (s)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The oscillator's increased speed, and thus decreasing period as a result
+of increasing amplitude is explained by the fact that the potential is
+quartic. Because this problem was done under the assumptions of energy
+conservation, the (quadratic in velocity) kinetic energy
+\[K = \tfrac12mv^2 = \tfrac12m\biggr(\frac{dx}{dt}\biggr)^2\] must make
+up for any lost potential energy. So as the potential drops off as a
+quartic function while it approaches zero, the speed must increase in
+greater proportion because it is only quadratic.
+
+This same trade-off is responsible for the period going to infinity as
+amplitude goes to zero. Because the maximum potential energy is
+incredibly small in this scenario, at \(x=0\) the speed must also be
+incredibly small (and this is where it is at its maximum). Therefore,
+the period will diverge as amplitude goes to zero.
+
+    \section{CP 5.11 Diffraction around edges with Gaussian
+quadrature}\label{cp-5.11-diffraction-around-edges-with-gaussian-quadrature}
+
+When a plane wave diffracts aroud an edge, the intensity at a point
+\((x,z)\) is given by
+
+\[I = \frac{I_0}{8} \Bigl( \bigl[ 2C(u) + 1 \bigr]^2 + \bigl[ 2S(u) + 1 \bigr]^2 \Bigr)\]
+
+where
+\[\qquad u = x \sqrt{2\over\lambda z}\,, \qquad C(u) = \int_0^u \cos \tfrac12\pi t^2 \ dt, \qquad S(u) = \int_0^u \sin \tfrac12\pi t^2 \ dt.\]
+
+So, given this, a function can be defined to calculate the intensity
+\(I\) of a sound wave relative to its pre diffracted intensity \(I_0.\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}definining constants for this problem in SI units}
+         \PY{n}{l} \PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{}wavelength (m)}
+         \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{50} \PY{c+c1}{\PYZsh{}sampling points for Gaussian quadrature}
+         
+         \PY{c+c1}{\PYZsh{}defining position function}
+         \PY{k}{def} \PY{n+nf}{u}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{z}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2} \PY{o}{/} \PY{p}{(}\PY{n}{l}\PY{o}{*}\PY{n}{z}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Main functions are defined below}
+         
+         \PY{k}{def} \PY{n+nf}{Cu}\PY{p}{(}\PY{n}{u}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{c}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{cos}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{pi}\PY{o}{*}\PY{p}{(}\PY{n}{t}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{x}\PY{p}{,}\PY{n}{w} \PY{o}{=} \PY{n}{gaussxwab}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{u}\PY{p}{)}
+             
+             \PY{n}{pp1} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{pp1} \PY{o}{+}\PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{c}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                 
+             \PY{k}{return} \PY{n}{pp1}
+         
+         \PY{k}{def} \PY{n+nf}{Su}\PY{p}{(}\PY{n}{u}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{s}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{sin}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{pi}\PY{o}{*}\PY{p}{(}\PY{n}{t}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{x}\PY{p}{,}\PY{n}{w} \PY{o}{=} \PY{n}{gaussxwab}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{u}\PY{p}{)}
+             
+             \PY{n}{pp1} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{pp1} \PY{o}{+}\PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{s}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                 
+             \PY{k}{return} \PY{n}{pp1}
+         
+         \PY{k}{def} \PY{n+nf}{ratio}\PY{p}{(}\PY{n}{u}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Takes position as an argument and calculates the fraction}
+         \PY{l+s+sd}{        of original intensity of a diffracted wave after edge\PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{n}{II0} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{Cu}\PY{p}{(}\PY{n}{u}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{Su}\PY{p}{(}\PY{n}{u}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{8}
+             \PY{k}{return} \PY{n}{II0}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}plots diffraction pattern}
+         
+         \PY{n}{density} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{z} \PY{o}{=} \PY{l+m+mi}{3} \PY{c+c1}{\PYZsh{}distance past edge (m)}
+         
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{density}\PY{p}{)}
+         \PY{n}{position} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{density}\PY{p}{)}
+         \PY{n}{intensity} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{density}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{density}\PY{p}{)}\PY{p}{:}
+             \PY{n}{position}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{u}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{z}\PY{p}{)}
+             \PY{n}{intensity}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{ratio}\PY{p}{(}\PY{n}{position}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{intensity}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Intensity of Diffracted Plane Waves}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Perpendicular Distance from Edge (m)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fraction of Original Intensity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As per the problem, there is noticeable variation in the intensity of
+sound diffracted around the edge, from almost nonexistent if you're well
+'covered' by the screen to greater than the original intensity a little
+under 2 m up when 3 m away.
+
+    \section{CP 5.12 The Stefan-Boltzmann constant with Gaussian
+quadrature}\label{cp-5.12-the-stefan-boltzmann-constant-with-gaussian-quadrature}
+
+In some time interval \(d\omega\) a black body electromagnetically
+radiates thermal energy \(I(\omega) d\omega,\) where
+
+\[I(\omega) = {\hbar\over4\pi^2c^2}\,{\omega^3\over(e^{\hbar\omega/k_BT}-1)}.\]
+
+Therefore the total energy per unit area radiated by that same black
+body is
+
+\[W = {k_B^4 T^4\over4\pi^2c^2\hbar^3} \int_0^\infty {x^3\over e^x-1}\ dx.\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}defining constants}
+         \PY{n}{kB} \PY{o}{=} \PY{n}{C}\PY{o}{.}\PY{n}{k} \PY{c+c1}{\PYZsh{}Boltzmann\PYZsq{}s constant (J/K)}
+         \PY{n}{hbar} \PY{o}{=} \PY{n}{C}\PY{o}{.}\PY{n}{hbar} \PY{c+c1}{\PYZsh{}reduced Planck\PYZsq{}s constant (kg m\PYZca{}2 s\PYZca{}\PYZhy{}1)}
+         \PY{n}{c} \PY{o}{=} \PY{n}{C}\PY{o}{.}\PY{n}{c} \PY{c+c1}{\PYZsh{}speed of light (m/s)}
+         
+         \PY{c+c1}{\PYZsh{}defining the integrand}
+         \PY{k}{def} \PY{n+nf}{intgrnd}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{:}
+             \PY{n}{num} \PY{o}{=} \PY{p}{(}\PY{n}{z}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{z}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3} \PY{c+c1}{\PYZsh{}numerator of f(x)}
+             \PY{n}{den} \PY{o}{=} \PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{n}{z}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{z}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{}denominator of f(x)}
+             \PY{k}{return} \PY{p}{(}\PY{n}{num} \PY{o}{/} \PY{n}{den}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/} \PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{z}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}chain rule}
+         
+         
+         \PY{k}{def} \PY{n+nf}{radiated\PYZus{}energy}\PY{p}{(}\PY{n}{T}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Gives the total energy per unit area radiated}
+         \PY{l+s+sd}{        by a black body.\PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{50}
+             \PY{n}{num} \PY{o}{=} \PY{p}{(}\PY{n}{kB}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{)} \PY{o}{*} \PY{n}{T}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}
+             \PY{n}{den} \PY{o}{=} \PY{l+m+mi}{4} \PY{o}{*} \PY{p}{(}\PY{n}{pi}\PY{o}{*}\PY{n}{c}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{hbar}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}
+             \PY{n}{out} \PY{o}{=} \PY{n}{num} \PY{o}{/} \PY{n}{den} \PY{c+c1}{\PYZsh{}constants outside of integral}
+             
+             \PY{n}{x}\PY{p}{,}\PY{n}{w} \PY{o}{=} \PY{n}{gaussxwab}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{l+m+mf}{0.0001}\PY{p}{,} \PY{l+m+mf}{0.999}\PY{p}{)}
+             
+             \PY{n}{I} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{I} \PY{o}{+}\PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{intgrnd}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                 
+             \PY{k}{return} \PY{n}{out}\PY{o}{*}\PY{n}{I}
+\end{Verbatim}
+
+    To evaluate this integral I used Gaussian quadrature over the range
+\((0,1).\) To change the range, and calculate this integral from zero to
+infinity, a substitution was required to change it to a finite integral.
+In general,
+
+\[\int_0^\infty f(x)\ dx = \int_0^1 \frac{1}{(1-z)^2}\ f\biggr(\frac{z}{1-z}\biggr)\ dz.\]
+
+My answer should be accurate the same order as all other integrals
+calculated through Gaussian quadrature, i.e., about 50 points would
+correspond to the limit of the computer's precision.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{}calcualtes Stefan\PYZhy{}Boltzmann constant and fractional error}
+         
+         \PY{k}{def} \PY{n+nf}{find\PYZus{}sigma}\PY{p}{(}\PY{n}{T}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}This function ends up always taking the same value}
+         \PY{l+s+sd}{        because the T\PYZca{}4 from the energy and the Stefan\PYZhy{}Boltzmann}
+         \PY{l+s+sd}{        relation cancel. It also finds the error on calculating}
+         \PY{l+s+sd}{        sigma\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{sigma} \PY{o}{=} \PY{n}{radiated\PYZus{}energy}\PY{p}{(}\PY{n}{T}\PY{p}{)} \PY{o}{/} \PY{n}{T}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}
+             \PY{n}{error} \PY{o}{=} \PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{sigma} \PY{o}{\PYZhy{}} \PY{n}{C}\PY{o}{.}\PY{n}{sigma}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{C}\PY{o}{.}\PY{n}{sigma} \PY{o}{*} \PY{l+m+mi}{100} \PY{c+c1}{\PYZsh{}in percent}
+             
+             \PY{k}{return} \PY{n}{sigma}\PY{p}{,} \PY{n}{error}
+         
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Stefan\PYZhy{}Boltzmann constant is }\PY{l+s+si}{\PYZob{}:2.3e\PYZcb{}}\PY{l+s+s2}{ and error is }\PY{l+s+si}{\PYZob{}:2.2e\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+              \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{find\PYZus{}sigma}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{find\PYZus{}sigma}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Stefan-Boltzmann constant is 5.670e-08 and error is 3.28e-06\%.
+
+    \end{Verbatim}
+
+    \section{CP 5.13 Quantum uncertainty in the harmonic oscillator with
+Gaussian
+quadrature}\label{cp-5.13-quantum-uncertainty-in-the-harmonic-oscillator-with-gaussian-quadrature}
+
+In a one-dimensional quantum harmonic oscillator, a spinless point
+particle's wavefunction is
+
+\[\psi_n(x) = {1\over\sqrt{2^n n!\sqrt{\pi}}}\, e^{-x^2/2}\,H_n(x)\]
+
+if that particle is in the \(n\)th energy level. (Assuming use of units
+that make constants 1.)
+
+The Hermite polynomials \(H_n(x)\) are given by
+
+\[H_{n+1}(x) = 2xH_n(x) - 2nH_{n-1}(x),\]
+
+where \(H_0(x) = 1\) and \(H_1(x) = 2x.\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{k}{def} \PY{n+nf}{Hermite}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Gives nth Hermite polynomial for given n and x\PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{k}{if} \PY{n}{n} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{1}
+             \PY{k}{elif} \PY{n}{n} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{n}{Hermite}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{x}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{Hermite}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{x}\PY{p}{)}
+             
+         
+         \PY{k}{def} \PY{n+nf}{psi}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Gives the wavefunction for a particle in the nth energy}
+         \PY{l+s+sd}{        level over position x\PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{n}{frac} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{/} \PY{p}{(}\PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{n}\PY{p}{)}\PY{o}{*}\PY{n}{factorial}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{o}{*}\PY{n}{sqrt}\PY{p}{(}\PY{n}{pi}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{expo} \PY{o}{=} \PY{n}{exp}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{frac} \PY{o}{*} \PY{n}{expo} \PY{o}{*} \PY{n}{Hermite}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{c+c1}{\PYZsh{}plots on same set of axes}
+         
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{400}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}jet= plt.get\PYZus{}cmap(\PYZsq{}jet\PYZsq{})}
+         \PY{c+c1}{\PYZsh{}colors = iter(jet(np.linspace(0,1,4)))}
+         
+         \PY{n}{psi0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{400}\PY{p}{)}
+         \PY{n}{psi1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{400}\PY{p}{)}
+         \PY{n}{psi2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{400}\PY{p}{)}
+         \PY{n}{psi3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{400}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{400}\PY{p}{)}\PY{p}{:} 
+             \PY{n}{psi0}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{psi}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{n}{psi1}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{psi}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{n}{psi2}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{psi}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{n}{psi3}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{psi}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{psi0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{psi1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{psi2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{psi3}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wavefunctions in a 1\PYZhy{}D Harmonic Oscillator}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Position}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Probability Density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{c+c1}{\PYZsh{}plot for 30th energy level from x=\PYZhy{}10 to x=10}
+         \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{500}
+         
+         \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{count}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{psi30} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{count}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{count}\PY{p}{)}\PY{p}{:}
+             \PY{n}{psi30}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{psi}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,}\PY{n}{x2}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x2}\PY{p}{,}\PY{n}{psi30}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wavefunction for n=30 in a 1\PYZhy{}D Harmonic Oscillator}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Position}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Probability Density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    A different method of substitution can be used to evaluate the integral
+\[\langle{x^2}\rangle = \int_{-\infty}^\infty x^2 |\psi_n(x)|^2 \ d x.\]
+
+In this case, we make the substitutions
+\(x = \tan{z} \text{ and } dx = \frac{dz}{\cos^2{z}}.\) This will give
+us the equivalency
+\[\int_\infty^\infty f(x)\ dx = \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \frac{f(\tan{z})}{\cos^2{z}}\ dz.\]
+
+So, we can make these substitutions in the wavefunctions to find the RMS
+position.
+
+The wavefunctions in \(x\) are
+\[\psi_n(x) = {1\over\sqrt{2^n n!\sqrt{\pi}}}\, e^{-x^2/2}\,H_n(x).\]
+
+We should be evaluating the integral
+
+\[\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \frac{\tan^2{z}}{\cos^2{z}} \biggr|\ \psi_n(\tan{z}) \biggr|^2 \ dz\]
+
+For \(n=5,\) we should find that the root-mean-square position
+\(\sqrt{\langle x^2 \rangle} = 2.3.\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{c+c1}{\PYZsh{}defines integrand in change of variables}
+         \PY{k}{def} \PY{n+nf}{change}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{:}
+             \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{5}
+             \PY{n}{front} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{tan}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{/} \PY{p}{(}\PY{n}{cos}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{k}{return} \PY{n}{front} \PY{o}{*} \PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{psi}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{tan}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+         
+         \PY{k}{def} \PY{n+nf}{RMS}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{a} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{2}
+             \PY{n}{b} \PY{o}{=} \PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{2}
+             \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{100}
+             
+             \PY{n}{x}\PY{p}{,}\PY{n}{w} \PY{o}{=} \PY{n}{gaussxwab}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+             
+             \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{s} \PY{o}{+}\PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{change}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                 
+             \PY{k}{return} \PY{n}{sqrt}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+         
+         \PY{n}{error} \PY{o}{=} \PY{l+m+mi}{100} \PY{o}{*} \PY{p}{(}\PY{n}{RMS}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mf}{2.3}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{2.3}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The RMS = }\PY{l+s+si}{\PYZob{}:2.3f\PYZcb{}}\PY{l+s+s2}{, which has an error of }\PY{l+s+si}{\PYZob{}:2.2f\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+              \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{RMS}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{error}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The RMS = 2.345, which has an error of 1.97\%
+
+    \end{Verbatim}
+
+    This value of the RMS \(\sqrt{\langle x^2 \rangle}\) is in the
+neighborhood of the known value.
+
+    \section{CP 5.19 Diffraction
+gratings}\label{cp-5.19-diffraction-gratings}
+
+Light diffracted through a grating then put through a lens has intensity
+given by the function
+
+\[I(x) = \biggl| \int_{-w/2}^{w/2} \sqrt{q(u)}\ e^{2\pi i xu/\lambda f} \ d u\ \biggr|^2\]
+for grating of width \(w,\) light of wavelength \(\lambda,\) lens of
+focal length \(f,\) and distance from the central axis \(u.\)
+
+For a grating with the transmission function
+\(q(u) = \sin^2{\alpha u},\) the separation of slits
+\(d = \frac{\pi}{\alpha}.\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{}constants}
+         \PY{n}{alpha} \PY{o}{=} \PY{n}{pi} \PY{o}{/} \PY{l+m+mf}{20e\PYZhy{}6} \PY{c+c1}{\PYZsh{}(m)}
+         \PY{n}{l} \PY{o}{=} \PY{l+m+mf}{500e\PYZhy{}9} \PY{c+c1}{\PYZsh{}(m)}
+         \PY{n}{f} \PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{}(m)}
+         \PY{n}{w} \PY{o}{=} \PY{l+m+mi}{10} \PY{o}{*} \PY{p}{(}\PY{n}{pi}\PY{o}{/}\PY{n}{alpha}\PY{p}{)}
+         
+         \PY{n}{slow} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.05} \PY{c+c1}{\PYZsh{}screen lower bound (m)}
+         \PY{n}{supp} \PY{o}{=} \PY{l+m+mf}{0.05} \PY{c+c1}{\PYZsh{}screen upper bound (m)}
+         
+         \PY{k}{def} \PY{n+nf}{q}\PY{p}{(}\PY{n}{u}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{p}{(}\PY{n}{sin}\PY{p}{(}\PY{n}{alpha}\PY{o}{*}\PY{n}{u}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{}defines integrand}
+         \PY{k}{def} \PY{n+nf}{intgrd}\PY{p}{(}\PY{n}{u}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Gives value of the integrand for given u and x\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{return} \PY{n}{sqrt}\PY{p}{(}\PY{n}{q}\PY{p}{(}\PY{n}{u}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{cexp}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{n}{u}\PY{o}{*}\PY{l+m+mi}{1}\PY{n}{j}\PY{o}{/}\PY{p}{(}\PY{n}{l}\PY{o}{*}\PY{n}{f}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{k}{def} \PY{n+nf}{intensity}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Uses Simpson\PYZsq{}s rule to integrate the intensity function\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{a} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{w}\PY{o}{/}\PY{l+m+mi}{2}
+             \PY{n}{b} \PY{o}{=} \PY{n}{w}\PY{o}{/}\PY{l+m+mi}{2}
+             \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{50}
+             \PY{n}{h} \PY{o}{=} \PY{p}{(}\PY{n}{b}\PY{o}{\PYZhy{}}\PY{n}{a}\PY{p}{)} \PY{o}{/} \PY{n}{N}
+             
+             \PY{n}{sum1} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{sum2} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{k} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                     \PY{n}{sum1} \PY{o}{+}\PY{o}{=} \PY{n}{intgrd}\PY{p}{(}\PY{n}{a}\PY{o}{+}\PY{n}{k}\PY{o}{*}\PY{n}{h}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+                 \PY{k}{elif} \PY{n}{k}\PY{o}{\PYZpc{}}\PY{k}{1} == 0:
+                     \PY{n}{sum2} \PY{o}{+}\PY{o}{=} \PY{n}{intgrd}\PY{p}{(}\PY{n}{a}\PY{o}{+}\PY{n}{k}\PY{o}{*}\PY{n}{h}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+             
+             \PY{n}{intensity} \PY{o}{=} \PY{n}{h}\PY{o}{*}\PY{p}{(}\PY{n}{intgrd}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{x}\PY{p}{)} \PY{o}{+} \PY{n}{intgrd}\PY{p}{(}\PY{n}{b}\PY{p}{,}\PY{n}{x}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{4}\PY{o}{*}\PY{n}{sum1} \PY{o}{+} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{sum2}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{3}
+             
+             \PY{n}{I} \PY{o}{=} \PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{intensity}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+                     
+             \PY{k}{return} \PY{n}{I}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{}plotting intensity profile to find ideal vmax}
+         
+         \PY{n}{points} \PY{o}{=} \PY{l+m+mi}{1000}
+         \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{slow}\PY{p}{,} \PY{n}{supp}\PY{p}{,} \PY{n}{points}\PY{p}{)}
+         \PY{n}{density} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{points}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{:}
+             \PY{n}{density}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{intensity}\PY{p}{(}\PY{n}{xx}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{density}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{}code creating the screen}
+         \PY{n}{screen} \PY{o}{=} \PY{l+m+mf}{0.1} \PY{c+c1}{\PYZsh{}(m)}
+         \PY{n}{points} \PY{o}{=} \PY{l+m+mi}{1000} \PY{c+c1}{\PYZsh{}number of grid points on long side}
+         \PY{n}{spacing} \PY{o}{=} \PY{n}{screen} \PY{o}{/} \PY{n}{points} \PY{c+c1}{\PYZsh{}spacing of points in m}
+         \PY{n}{center} \PY{o}{=} \PY{n}{screen}\PY{o}{/}\PY{l+m+mi}{2}
+         
+         \PY{n}{pattern} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{400}\PY{p}{,}\PY{n}{points}\PY{p}{]}\PY{p}{,}\PY{n+nb}{float}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}calculate the values in the array}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x} \PY{o}{=} \PY{n}{spacing} \PY{o}{*} \PY{n}{i}
+             \PY{n}{pattern}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{intensity}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{center}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}increases readability of plot}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Diffraction Pattern on Screen from Simple Grating}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x (\PYZdl{}m\PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.04}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.03}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.02}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,}\PYZbs{}
+                        \PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mf}{0.02}\PY{p}{,} \PY{l+m+mf}{0.03}\PY{p}{,} \PY{l+m+mf}{0.04}\PY{p}{,} \PY{l+m+mf}{0.05}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}vmax deduced from plot above}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{pattern}\PY{p}{,}\PY{n}{origin}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PYZbs{}
+                   \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gray}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{vmax}\PY{o}{=}\PY{l+m+mf}{0.2e\PYZhy{}8}\PY{p}{,}\PYZbs{}
+                   \PY{n}{extent}\PY{o}{=}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.05}\PY{p}{,}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{025}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} <matplotlib.image.AxesImage at 0x11744bcc0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The next few cells redefine the transmission function \(q(u)\) and
+create a density plot for this physical phenomenon. The code for
+plotting is the same, except the value for vmax on the density plot will
+likely be different and now determined from a new intensity profile.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{}new cell for defining things}
+         \PY{n}{beta} \PY{o}{=} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{alpha}
+         
+         \PY{k}{def} \PY{n+nf}{q}\PY{p}{(}\PY{n}{u}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{p}{(}\PY{p}{(}\PY{n}{sin}\PY{p}{(}\PY{n}{alpha}\PY{o}{*}\PY{n}{u}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{p}{(}\PY{n}{sin}\PY{p}{(}\PY{n}{beta}\PY{o}{*}\PY{n}{u}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{}plotting intensity profile to find ideal vmax}
+         
+         \PY{n}{points} \PY{o}{=} \PY{l+m+mi}{1000}
+         \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{slow}\PY{p}{,} \PY{n}{supp}\PY{p}{,} \PY{n}{points}\PY{p}{)}
+         \PY{n}{density} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{points}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{:}
+             \PY{n}{density}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{intensity}\PY{p}{(}\PY{n}{xx}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{density}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{}code creating the screen}
+         \PY{n}{screen} \PY{o}{=} \PY{l+m+mf}{0.1} \PY{c+c1}{\PYZsh{}(m)}
+         \PY{n}{points} \PY{o}{=} \PY{l+m+mi}{1000} \PY{c+c1}{\PYZsh{}number of grid points on long side}
+         \PY{n}{spacing} \PY{o}{=} \PY{n}{screen} \PY{o}{/} \PY{n}{points} \PY{c+c1}{\PYZsh{}spacing of points in m}
+         \PY{n}{center} \PY{o}{=} \PY{n}{screen}\PY{o}{/}\PY{l+m+mi}{2}
+         
+         \PY{n}{pattern} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{400}\PY{p}{,}\PY{n}{points}\PY{p}{]}\PY{p}{,}\PY{n+nb}{float}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}calculate the values in the array}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x} \PY{o}{=} \PY{n}{spacing} \PY{o}{*} \PY{n}{i}
+             \PY{n}{pattern}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{intensity}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{center}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}increases readability of plot}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Diffraction Pattern on Screen for More Complex Grating}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x (\PYZdl{}m\PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.04}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.03}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.02}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,}\PYZbs{}
+                        \PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mf}{0.02}\PY{p}{,} \PY{l+m+mf}{0.03}\PY{p}{,} \PY{l+m+mf}{0.04}\PY{p}{,} \PY{l+m+mf}{0.05}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}vmax deduced from plot above}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{pattern}\PY{p}{,}\PY{n}{origin}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PYZbs{}
+                   \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gray}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{vmax}\PY{o}{=}\PY{l+m+mf}{0.8e\PYZhy{}9}\PY{p}{,}\PYZbs{}
+                   \PY{n}{extent}\PY{o}{=}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.05}\PY{p}{,}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{025}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} <matplotlib.image.AxesImage at 0x116fbce48>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The next few cells redefine the transmission function \(q(u)\) again and
+create a density plot for the two "square" slits scenario. The
+transmission function for this system should be defined piecewise for
+the 4 regions that exist. The regions can be combined into ones of
+transmission and ones without.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Beyond the far edges of the slits
+\item
+  In front of the 10 \(\mu m\) slit
+\item
+  Behind the 60 \(\mu m\) gap
+\item
+  In front of the 20 \(\mu m\) slit
+\end{enumerate}
+
+The code for plotting is the same, except the value for vmax on the
+density plot will likely be different and now determined from a new
+intensity profile.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{k}{def} \PY{n+nf}{q}\PY{p}{(}\PY{n}{u}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}in front of slits}
+             \PY{k}{if} \PY{p}{(}\PY{n}{u} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{u} \PY{o}{\PYZlt{}} \PY{l+m+mf}{10e\PYZhy{}6}\PY{p}{)} \PY{o+ow}{or} \PY{p}{(}\PY{n}{u} \PY{o}{\PYZgt{}} \PY{l+m+mf}{70e\PYZhy{}6} \PY{o+ow}{and} \PY{n}{u} \PY{o}{\PYZlt{}} \PY{l+m+mf}{90e\PYZhy{}6}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{1}
+             
+             \PY{c+c1}{\PYZsh{}outside}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{}plotting intensity profile to find ideal vmax}
+         
+         \PY{n}{points} \PY{o}{=} \PY{l+m+mi}{1000}
+         \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{slow}\PY{p}{,} \PY{n}{supp}\PY{p}{,} \PY{n}{points}\PY{p}{)}
+         \PY{n}{density} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{points}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{:}
+             \PY{n}{density}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{intensity}\PY{p}{(}\PY{n}{xx}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{density}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{}code creating the screen}
+         \PY{n}{screen} \PY{o}{=} \PY{l+m+mf}{0.1} \PY{c+c1}{\PYZsh{}(m)}
+         \PY{n}{points} \PY{o}{=} \PY{l+m+mi}{1000} \PY{c+c1}{\PYZsh{}number of grid points on long side}
+         \PY{n}{spacing} \PY{o}{=} \PY{n}{screen} \PY{o}{/} \PY{n}{points} \PY{c+c1}{\PYZsh{}spacing of points in m}
+         \PY{n}{center} \PY{o}{=} \PY{n}{screen}\PY{o}{/}\PY{l+m+mi}{2}
+         
+         \PY{n}{pattern} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{400}\PY{p}{,}\PY{n}{points}\PY{p}{]}\PY{p}{,}\PY{n+nb}{float}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}calculate the values in the array}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x} \PY{o}{=} \PY{n}{spacing} \PY{o}{*} \PY{n}{i}
+             \PY{n}{pattern}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{intensity}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{center}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}increases readability of plot}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Diffraction Pattern on Screen from Two Square Slits}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x (\PYZdl{}m\PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.04}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.03}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.02}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,}\PYZbs{}
+                        \PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mf}{0.02}\PY{p}{,} \PY{l+m+mf}{0.03}\PY{p}{,} \PY{l+m+mf}{0.04}\PY{p}{,} \PY{l+m+mf}{0.05}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}vmax deduced from plot above}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{pattern}\PY{p}{,}\PY{n}{origin}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PYZbs{}
+                   \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gray}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{vmax}\PY{o}{=}\PY{l+m+mf}{0.7e\PYZhy{}9}\PY{p}{,}\PYZbs{}
+                   \PY{n}{extent}\PY{o}{=}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.05}\PY{p}{,}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{025}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} <matplotlib.image.AxesImage at 0x116f5e550>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
